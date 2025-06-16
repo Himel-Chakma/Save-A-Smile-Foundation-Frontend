@@ -1,55 +1,88 @@
 <?php
+include('admin/main.php');
+$object = new batch_details();
 include 'header.php';
+
+if (isset($_GET["news_id"])) {
+    $_SESSION["news_id"] = $_GET["news_id"];
+} else {
+    echo "<script type='text/javascript'>window.location.href = 'blogs.php';</script>";
+}
+
+function getCategoryString($binaryString)
+{
+    $categories = [
+        'Donation',
+        'Charity',
+        'Medical'
+    ];
+
+    $selectedCategories = [];
+
+    for ($i = 0; $i < strlen($binaryString); $i++) {
+        if ($binaryString[$i] == '1') {
+            $selectedCategories[] = $categories[$i];
+        }
+    }
+
+    return implode(', ', $selectedCategories);
+}
+
+$object->query = "SELECT fill_form.firstname, fill_form.lastname, news.* FROM news INNER JOIN fill_form ON fill_form.form_id = news.created_by WHERE news_id = '" . $_SESSION["news_id"] . "'";
+
+$result = $object->get_result();
+
+foreach ($result as $row) {
+    $news_title = $row["news_title"];
+    $news_content = $row["news_content"];
+    $news_photo_link = $row["news_photo_link"];
+    $news_date = $row["news_date"];
+    $category = $row["category"];
+    $fullname = $row["firstname"] . " " . $row["lastname"];
+    $category = getCategoryString($row["category"]);
+}
 ?>
 
 <!-- Header -->
 <div id="topbar">
     <div class="container px-0 px-lg-5">
-        <div class="row m-0 py-3 custom-border-bottom-yellow z-index">
-            <div
-                class="col-md-3 ps-0 ms-0 d-flex align-items-center justify-content-lg-start justify-content-center">
-                <a href="index.php"><img src="img/logo.png" width="180" /></a>
+        <div
+            class="d-flex justify-content-between py-3 align-items-center custom-border-bottom-yellow z-index">
+            <button
+                class="custom-btn d-lg-none bg-yellow rounded-normal ms-3"
+                style="font-size: 18px"
+                id="menu-btn">
+                <i class="fa-solid fa-bars"></i>
+            </button>
+            <a href="index.php"><img src="img/logo2.png" width="180" /></a>
+            <div class="sam" id="nav">
+                <ul class="nav">
+                    <li>
+                        <a href="index.php" class="nav-link">Home</a>
+                    </li>
+                    <li>
+                        <a href="about.php" class="nav-link">About Us</a>
+                    </li>
+                    <li>
+                        <a href="projects.php" class="nav-link">Projects</a>
+                    </li>
+                    <li>
+                        <a href="events.php" class="nav-link">Events</a>
+                    </li>
+                    <li>
+                        <a href="blogs.php" class="nav-link active">Blogs</a>
+                    </li>
+                    <li>
+                        <a href="contact.php" class="nav-link">Contact</a>
+                    </li>
+                </ul>
             </div>
-            <div
-                class="col-6 d-flex align-items-center justify-content-start justify-content-lg-center">
-                <button
-                    class="custom-btn d-lg-none bg-yellow rounded-normal"
-                    style="font-size: 18px"
-                    id="menu-btn">
-                    <i class="fa-solid fa-bars"></i>
-                </button>
-                <div class="sam" id="nav">
-                    <ul class="nav">
-                        <li>
-                            <a href="index.php" class="nav-link">Home</a>
-                        </li>
-                        <li>
-                            <a href="about.php" class="nav-link">About Us</a>
-                        </li>
-                        <li>
-                            <a href="projects.php" class="nav-link">Projects</a>
-                        </li>
-                        <li>
-                            <a href="events.php" class="nav-link">Events</a>
-                        </li>
-                        <li>
-                            <a href="blogs.php" class="nav-link active">Blogs</a>
-                        </li>
-                        <li>
-                            <a href="contact.php" class="nav-link">Contact</a>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-            <div
-                class="col-md-3 col-6 pe-lg-0 pe-3 me-0 d-flex align-items-center justify-content-end">
-                <a
-                    href="donate.php"
-                    class="custom-btn bg-green hover-dark-blue rounded"
-                    style="font-size: 13px">
-                    DONATE NOW
-                </a>
-            </div>
+            <a
+                href="donate.php"
+                class="custom-btn bg-green hover-dark-blue rounded me-3 me-lg-0"
+                style="font-size: 13px">
+                DONATE NOW
+            </a>
         </div>
     </div>
 </div>
@@ -60,14 +93,14 @@ include 'header.php';
     <div
         class="container px-4 px-lg-5 d-flex flex-column justify-content-center align-items-center h-100">
         <h2 class="text-white quicksand fw-bold" id="reveal-up">
-            Aiding the Homeless Population
+            <?php echo $news_title; ?>
         </h2>
         <div class="breadcrumb-list" id="reveal-left">
             <a href="index.php" class="text-white">Home</a>
             <i class="fa-solid fa-angles-right text-white mx-2"></i>
             <a href="blogs.php" class="text-white">Blogs</a>
             <i class="fa-solid fa-angles-right text-white mx-2"></i>
-            <span class="text-green">Aiding the Homeless Population</span>
+            <span class="text-green"><?php echo $news_title; ?></span>
         </div>
     </div>
 </section>
@@ -79,64 +112,60 @@ include 'header.php';
             <div class="col-md-8 mb-4">
                 <div class="position-relative mb-5">
                     <div class="event-image">
-                        <img src="img/1.jpg" class="img-fluid" />
-                        <span class="blog-tag">Education</span>
+                        <img src="admin/<?php echo $news_photo_link; ?>" class="img-fluid" />
+                        <span class="blog-tag"><?php echo $category; ?></span>
                     </div>
                     <h2 class="quicksand fw-bold my-4">
-                        Aiding the Homeless Population
+                        <?php echo $news_title; ?>
                     </h2>
                     <ul
                         class="d-flex align-items-center text-gray m-0 p-0"
                         style="list-style: none">
                         <li class="quicksand">
-                            <i class="fa-regular fa-user me-2 text-green"></i> By Admin
+                            <i class="fa-regular fa-user me-2 text-green"></i> By <?php echo $fullname; ?>
                         </li>
                         <li class="ms-4 quicksand">
-                            <i class="fa-regular fa-clock me-2 text-green"></i> 09:00 AM
+                            <i class="fa-regular fa-clock me-2 text-green"></i> <?php echo date("d M Y", strtotime($news_date)); ?>
                         </li>
                     </ul>
                     <hr class="my-4" style="border-color: #a6a6a6" />
                     <p class="quicksand text-secondary mb-4 text-justify">
-                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolor
-                        esse modi nostrum vero pariatur recusandae, fugit odit iste
-                        nesciunt! Quos totam laborum odio eum fugit natus vero ab sed
-                        sapiente dolores quia id accusantium fuga, porro numquam
-                        consequuntur sit minus repellat, nesciunt expedita ullam
-                        eveniet! Ullam laudantium distinctio, iure, asperiores nostrum
-                        quia rerum reprehenderit natus molestias magnam perspiciatis
-                        amet non voluptatem ipsum consectetur eveniet optio, cumque
-                        provident ipsa nisi. Asperiores quas voluptates doloremque,
-                        neque deserunt repudiandae minima porro quisquam corporis fuga,
-                        ratione error repellendus a. Culpa, veniam veritatis quod,
-                        dolores neque omnis animi alias aliquid quae quasi voluptas
-                        labore eius.
-                    </p>
-                    <p class="quicksand text-secondary text-justify">
-                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolor
-                        esse modi nostrum vero pariatur recusandae, fugit odit iste
-                        nesciunt! Quos totam laborum odio eum fugit natus vero ab sed
-                        sapiente dolores quia id accusantium fuga, porro numquam
-                        consequuntur sit minus repellat, nesciunt expedita ullam
-                        eveniet! Ullam laudantium distinctio, iure, asperiores nostrum
-                        quia rerum reprehenderit natus molestias magnam
+                        <?php echo $news_content; ?>
                     </p>
                     <div class="row my-4">
-                        <div class="col-md-6 mb-lg-0 mb-4">
-                            <img src="img/1.jpg" class="img-fluid" />
-                        </div>
-                        <div class="col-md-6">
-                            <img src="img/1.jpg" class="img-fluid" />
-                        </div>
+                        <?php
+                        $object->query = "SELECT * FROM gallery WHERE event_id = '" . $_SESSION["news_id"] . "' LIMIT 2";
+                        $result = $object->get_result();
+
+                        $object->query = "SELECT * FROM gallery WHERE event_id = '" . $_SESSION["news_id"] . "'";
+                        $object->execute();
+                        $total = $object->row_count();
+
+                        if ($total > 0) {
+                            $i = 1;
+                            foreach ($result as $row) {
+                                if ($total > 2 && $i == 2) {
+                                    echo '<div class="col-md-6 mb-lg-0 mb-4">
+                                    <a href="admin/' . $row["photo_link"] . '" data-fancybox="gallery"><img src="admin/' . $row["photo_link"] . '" /></a>';
+
+                                    $remainingQuery = "SELECT * FROM gallery WHERE event_id = '" . $_SESSION["event_id"] . "' LIMIT 2, " . ($total - 2);
+                                    $object->query = $remainingQuery;
+                                    $object->execute();
+                                    $remainingResult = $object->get_result();
+                                    foreach ($remainingResult as $remainingRow) {
+                                        echo '<a href="admin/' . $remainingRow["photo_link"] . '" data-fancybox="gallery" class="position-absolute" style="top: 0; left: 0;"><img src="admin/' . $remainingRow["photo_link"] . '" style="visibility: hidden;" /></a>';
+                                    }
+                                    echo '</div>';
+                                } else {
+                                    echo '<div class="col-md-6 mb-3">
+                                    <a href="admin/' . $row["photo_link"] . '" data-fancybox="gallery"><img src="admin/' . $row["photo_link"] . '" /></a>
+                                </div>';
+                                }
+                                $i++;
+                            }
+                        }
+                        ?>
                     </div>
-                    <p class="quicksand text-secondary text-justify">
-                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolor
-                        esse modi nostrum vero pariatur recusandae, fugit odit iste
-                        nesciunt! Quos totam laborum odio eum fugit natus vero ab sed
-                        sapiente dolores quia id accusantium fuga, porro numquam
-                        consequuntur sit minus repellat, nesciunt expedita ullam
-                        eveniet! Ullam laudantium distinctio, iure, asperiores nostrum
-                        quia rerum reprehenderit natus molestias magnam
-                    </p>
                 </div>
                 <hr class="my-3" style="border-color: #a6a6a6" />
                 <div
@@ -165,13 +194,16 @@ include 'header.php';
                 <div class="event-info-card mb-4 p-4">
                     <h5 class="quicksand fw-bold">Search</h5>
                     <div class="search-bar position-relative">
-                        <input
-                            type="text"
-                            class="custom-form-control mt-3"
-                            placeholder="Search here" />
-                        <button class="search-btn">
-                            <i class="fa-solid fa-search"></i>
-                        </button>
+                        <form action="blogs.php" method="GET">
+                            <input
+                                type="text"
+                                class="custom-form-control mt-3"
+                                placeholder="Search here"
+                                name="q" />
+                            <button class="search-btn" type="submit">
+                                <i class="fa-solid fa-search"></i>
+                            </button>
+                        </form>
                     </div>
                 </div>
                 <div class="event-info-card mb-4 p-4">
@@ -198,63 +230,33 @@ include 'header.php';
                 <!--Event Info Card-->
                 <div class="event-info-card mb-4 p-4">
                     <h5 class="quicksand fw-bold">Recent Posts</h5>
-                    <div class="event-info pt-3" id="reveal-right">
+                    <?php
+                    $object->query = "SELECT * FROM news ORDER BY news_date DESC LIMIT 3";
+
+                    $result = $object->get_result();
+
+                    foreach ($result as $row) {
+                        echo '<div class="event-info pt-3" id="reveal-right">
                         <div class="d-flex">
-                            <img src="img/1.jpg" class="img-fluid blog-info-icon me-3" />
+                            <img src="admin/' . $row["news_photo_link"] . '" class="img-fluid blog-info-icon me-3" />
                             <div class="event-info-text">
                                 <h6>
                                     <a
-                                        href=""
+                                        href="blog-single.php?news_id=' . $row["news_id"] . '"
                                         class="quicksand text-dark hover-text-green fw-bold text-decoration-none"
-                                        style="line-height: 20px">Lorem ipsum dolor sit amet consectetur adipisicing
+                                        style="line-height: 20px">' . $row["news_title"] . '
                                     </a>
                                 </h6>
                                 <p
                                     class="m-0 quicksand text-secondary"
                                     style="font-size: 14px">
-                                    20 Nov 2024
+                                    ' . date("d M Y", strtotime($row["news_date"])) . '
                                 </p>
                             </div>
                         </div>
-                    </div>
-                    <div class="event-info pt-3" id="reveal-right-2">
-                        <div class="d-flex">
-                            <img src="img/1.jpg" class="img-fluid blog-info-icon me-3" />
-                            <div class="event-info-text">
-                                <h6>
-                                    <a
-                                        href=""
-                                        class="quicksand text-dark hover-text-green fw-bold text-decoration-none"
-                                        style="line-height: 20px">Lorem ipsum dolor sit amet consectetur adipisicing
-                                    </a>
-                                </h6>
-                                <p
-                                    class="m-0 quicksand text-secondary"
-                                    style="font-size: 14px">
-                                    20 Nov 2024
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="event-info pt-3" id="reveal-right-3">
-                        <div class="d-flex">
-                            <img src="img/1.jpg" class="img-fluid blog-info-icon me-3" />
-                            <div class="event-info-text">
-                                <h6>
-                                    <a
-                                        href=""
-                                        class="quicksand text-dark hover-text-green fw-bold text-decoration-none"
-                                        style="line-height: 20px">Lorem ipsum dolor sit amet consectetur adipisicing
-                                    </a>
-                                </h6>
-                                <p
-                                    class="m-0 quicksand text-secondary"
-                                    style="font-size: 14px">
-                                    20 Nov 2024
-                                </p>
-                            </div>
-                        </div>
-                    </div>
+                    </div>';
+                    }
+                    ?>
                 </div>
 
                 <div class="event-info-card mb-4 p-4">
@@ -277,3 +279,9 @@ include 'header.php';
 <?php
 include 'footer.php';
 ?>
+
+<script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0/dist/fancybox/fancybox.umd.js"></script>
+
+<script>
+    Fancybox.bind("[data-fancybox]", {});
+</script>

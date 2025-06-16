@@ -4,8 +4,8 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Youth For Rural Health</title>
-    <link rel="icon" href="img/logo_icon.png" type="image/png" />
+    <title>Save A Smile Foundation</title>
+    <link rel="icon" href="img/logo222.png" type="image/png" />
     <link
         href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap"
         rel="stylesheet" />
@@ -44,10 +44,10 @@
             <div class="row">
                 <div
                     class="col-md-6 d-flex justify-content-center justify-content-md-start">
-                    <p class="m-0">
+                    <a class="m-0 text-white" href="mailto:saveasmile.fd@gmail.com">
                         <i class="fa-regular fa-envelope-open me-2"></i>
-                        info@org.org
-                    </p>
+                        saveasmile.fd@gmail.com
+                    </a>
                     <p class="m-0 ms-3">
                         <i class="fa-solid fa-phone-volume me-2"></i>
                         (+880)1865054501
@@ -55,9 +55,9 @@
                 </div>
                 <div
                     class="col-md-6 d-flex justify-content-center justify-content-md-end">
-                    <a href="#" class="text-white me-4"><i class="fab fa-facebook-f"></i></a>
+                    <a href="https://www.facebook.com/saveasmile.fd" class="text-white me-4"><i class="fab fa-facebook-f"></i></a>
                     <a href="#" class="text-white me-4"><i class="fab fa-twitter"></i></a>
-                    <a href="#" class="text-white"><i class="fab fa-linkedin-in"></i></a>
+                    <a href="https://www.linkedin.com/in/save-a-smile-foundation" class="text-white"><i class="fab fa-linkedin-in"></i></a>
                 </div>
             </div>
         </div>

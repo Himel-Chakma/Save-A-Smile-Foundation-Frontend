@@ -1,54 +1,70 @@
 <?php
-include 'header.php';
+include('admin/main.php');
+$object = new batch_details();
+include('header.php');
+
+$ipAddress = $_SERVER['REMOTE_ADDR'];
+
+date_default_timezone_set('Asia/Dhaka');
+
+// Get the current date
+$visitDate = date("Y-m-d");
+$visitTime = date("Y-m-d H:i:s");
+
+// Check if this IP address has already visited today
+$object->query = "SELECT * FROM visitors WHERE ip_address = '$ipAddress' AND visit_date = '$visitDate'";
+$object->execute();
+$result = $object->get_result();
+if ($object->row_count() == 0) {
+    // Insert the new visitor
+    $object->query = "INSERT INTO visitors (ip_address, visit_date, visit_time) VALUES ('$ipAddress', '$visitDate', '$visitTime')";
+    $object->execute();
+} else {
+    // Update the visitor
+    $object->query = "UPDATE visitors SET visit_time = '$visitTime', visit_date = '$visitDate' WHERE ip_address = '$ipAddress'";
+    $object->execute();
+}
 ?>
 <!-- Header -->
 <div id="topbar">
     <div class="container px-0 px-lg-5">
-        <div class="row m-0 py-3 custom-border-bottom-yellow z-index">
-            <div
-                class="col-md-3 ps-0 ms-0 d-flex align-items-center justify-content-lg-start justify-content-center">
-                <a href="index.php"><img src="img/logo.png" width="180" /></a>
+        <div
+            class="d-flex justify-content-between py-3 align-items-center custom-border-bottom-yellow z-index">
+            <button
+                class="custom-btn d-lg-none bg-yellow rounded-normal ms-3"
+                style="font-size: 18px"
+                id="menu-btn">
+                <i class="fa-solid fa-bars"></i>
+            </button>
+            <a href="index.php"><img src="img/logo2.png" width="180" /></a>
+            <div class="sam" id="nav">
+                <ul class="nav">
+                    <li>
+                        <a href="index.php" class="nav-link active">Home</a>
+                    </li>
+                    <li>
+                        <a href="about.php" class="nav-link">About Us</a>
+                    </li>
+                    <li>
+                        <a href="projects.php" class="nav-link">Projects</a>
+                    </li>
+                    <li>
+                        <a href="events.php" class="nav-link">Events</a>
+                    </li>
+                    <li>
+                        <a href="blogs.php" class="nav-link">Blogs</a>
+                    </li>
+                    <li>
+                        <a href="contact.php" class="nav-link">Contact</a>
+                    </li>
+                </ul>
             </div>
-            <div
-                class="col-6 d-flex align-items-center justify-content-start justify-content-lg-center">
-                <button
-                    class="custom-btn d-lg-none bg-yellow rounded-normal"
-                    style="font-size: 18px"
-                    id="menu-btn">
-                    <i class="fa-solid fa-bars"></i>
-                </button>
-                <div class="sam" id="nav">
-                    <ul class="nav">
-                        <li>
-                            <a href="index.php" class="nav-link active">Home</a>
-                        </li>
-                        <li>
-                            <a href="about.php" class="nav-link">About Us</a>
-                        </li>
-                        <li>
-                            <a href="projects.php" class="nav-link">Projects</a>
-                        </li>
-                        <li>
-                            <a href="events.php" class="nav-link">Events</a>
-                        </li>
-                        <li>
-                            <a href="events.php" class="nav-link">Blogs</a>
-                        </li>
-                        <li>
-                            <a href="contact.php" class="nav-link">Contact</a>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-            <div
-                class="col-md-3 col-6 pe-lg-0 pe-3 me-0 d-flex align-items-center justify-content-end">
-                <a
-                    href="donate.php"
-                    class="custom-btn bg-green hover-dark-blue rounded"
-                    style="font-size: 13px">
-                    DONATE NOW
-                </a>
-            </div>
+            <a
+                href="donate.php"
+                class="custom-btn bg-green hover-dark-blue rounded me-3 me-lg-0"
+                style="font-size: 13px">
+                DONATE NOW
+            </a>
         </div>
     </div>
 </div>
@@ -56,36 +72,15 @@ include 'header.php';
 <!-- Banner -->
 <div class="swiper mySwiper">
     <div class="swiper-wrapper">
+        <?php
+        $object->query = "SELECT * FROM gallery WHERE show_in_slider = '1'";
+
+        $result = $object->get_result();
+
+        foreach ($result as $row) {
+            echo '
         <div class="swiper-slide position-relative">
-            <div class="banner" style="background-image: url('img/4.jpg')"></div>
-            <div class="background-overlay"></div>
-            <div
-                class="d-flex justify-content-center align-items-center banner-text flex-column">
-                <h6
-                    class="text-white text-center quicksand text-uppercase my-4 animate__animated animate__zoomIn">
-                    Change the world together
-                </h6>
-                <h1
-                    class="text-white text-center quicksand animate__animated animate__fadeInUp animate__delay-1s">
-                    Support Kids and Elders<br />
-                    Give Generously
-                </h1>
-                <p
-                    class="text-white text-center quicksand banner-text-desc mt-3 animate__animated animate__fadeInUp animate__delay-2s">
-                    Save A Smile Foundation is a non-profit voluntary organization
-                    conducted by the students of different SSC batches for quality
-                    education, proper health and hygiene and environment protection.
-                </p>
-                <a
-                    href="about.php"
-                    class="custom-btn bg-green hover-dark-blue rounded mt-4 animate__animated animate__fadeInUp animate__delay-3s"
-                    style="font-size: 16px">
-                    LEARN MORE
-                </a>
-            </div>
-        </div>
-        <div class="swiper-slide position-relative">
-            <div class="banner" style="background-image: url('img/5.jpg')"></div>
+            <div class="banner" style="background-image: url(\'admin/' . $row["photo_link"] . '\');"></div>
             <div class="background-overlay"></div>
             <div
                 class="d-flex justify-content-center align-items-center banner-text flex-column">
@@ -95,8 +90,8 @@ include 'header.php';
                 </h6>
                 <h1
                     class="text-white text-center quicksand animate__animated animate__fadeInUp animate__delay-1s">
-                    Support Kids and Elders<br />
-                    Give Generously
+                    Let\'s work together to<br />
+                    Save A Smile
                 </h1>
                 <p
                     class="text-white text-center quicksand banner-text-desc mt-3 animate__animated animate__fadeInUp animate__delay-2s">
@@ -106,12 +101,15 @@ include 'header.php';
                 </p>
                 <a
                     href="about.php"
-                    class="custom-btn bg-green hover-dark-blue rounded-pill mt-4 animate__animated animate__fadeInUp animate__delay-3s"
+                    class="custom-btn bg-yellow hover-dark-blue rounded mt-4 animate__animated animate__fadeInUp animate__delay-3s"
                     style="font-size: 16px">
                     LEARN MORE
                 </a>
             </div>
         </div>
+        ';
+        }
+        ?>
     </div>
     <div class="banner-button">
         <button class="banner-button-previous mb-3 active">
@@ -128,31 +126,30 @@ include 'header.php';
     <div class="container py-5 px-4 px-lg-5">
         <div class="row">
             <div class="col-md-6 position-relative mb-4 mb-lg-0" id="reveal-left">
-                <img src="img/3.jpg" class="about-img about-img-1" />
-                <img src="img/2.jpg" class="about-img about-img-2" />
+                <img src="img/about_img.jpg" class="about-img about-img-1" />
+                <img src="img/card1.jpg" class="about-img about-img-2" />
                 <img src="img/about-dot.png" class="about-img about-dot" />
             </div>
             <div class="col-md-6">
                 <p
-                    class="text-green quicksand fw-bold"
+                    class="text-yellow quicksand fw-bold"
                     id="reveal-up"
                     style="font-size: 16px">
                     <i class="fa-solid fa-angles-left me-2"></i> ABOUT US
                     <i class="fa-solid fa-angles-right ms-2"></i>
                 </p>
                 <h1 class="quicksand fw-bold my-4" id="reveal-up">
-                    Discover Youth For Rural Health
+                    Discover Save A Smile Foundation
                 </h1>
                 <p
-                    class="text-gray quicksand my-4"
-                    style="font-size: 16px"
+                    class="text-secondary quicksand my-4"
+                    style="font-size: 16px; text-align: justify"
                     id="reveal-up">
-                    Youth for Rural Health is a non-profit voluntary organization that
-                    is dedicated to improving the health and well-being of rural
-                    communities in Bangladesh. We work with local communities to
-                    provide access to quality healthcare, education, and other
-                    essential services. Our goal is to empower young people to become
-                    leaders in their communities and create positive change.
+                    Save A Smile Foundation, a student-led non-profit in Chittagong
+                    Hill Tracts, Bangladesh, established in 2017, focuses on societal
+                    betterment. With over 200 members, it implements humanitarian
+                    programs, including medical aid, educational support, and
+                    seminars, aiming for nationwide development.
                 </p>
                 <div class="row" id="reveal-down">
                     <div class="col-6">
@@ -180,28 +177,41 @@ include 'header.php';
                         </ul>
                     </div>
                 </div>
-                <div class="d-flex align-items-center mt-4" id="reveal-down">
-                    <div class="me-3">
-                        <a
-                            href="about.php"
-                            class="custom-btn bg-green hover-dark-blue rounded py-3"
-                            style="font-size: 16px">
-                            LEARN MORE
-                        </a>
-                    </div>
-                    <div class="d-flex align-items-center">
+                <div class="d-flex align-items-center my-4">
+                    <div class="d-flex align-items-center me-4" id="reveal-right">
                         <div class="founder-photo me-3">
                             <img src="img/f1.png" />
                         </div>
                         <div class="founder-desc">
                             <h6 class="merriweather fw-bold">Himel Chakma</h6>
                             <p
-                                class="text-green text-uppercase m-0"
+                                class="text-yellow text-uppercase m-0"
                                 style="font-size: 13px">
                                 Co-Founder & Advisor
                             </p>
                         </div>
                     </div>
+                    <div class="d-flex align-items-center" id="reveal-right-2">
+                        <div class="founder-photo me-3">
+                            <img src="img/f2.jpg" />
+                        </div>
+                        <div class="founder-desc">
+                            <h6 class="merriweather fw-bold">Lampra Tripura</h6>
+                            <p
+                                class="text-yellow text-uppercase m-0"
+                                style="font-size: 13px">
+                                Co-Founder & Advisor
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="mt-4" id="reveal-down">
+                    <a
+                        href="about.php"
+                        class="custom-btn bg-yellow hover-dark-blue rounded py-2"
+                        style="font-size: 16px; display: inline-block;">
+                        LEARN MORE
+                    </a>
                 </div>
             </div>
         </div>
@@ -226,7 +236,7 @@ include 'header.php';
                             <span class="counter">2500</span>+
                         </h2>
                         <p class="text-white m-0" style="font-size: 14px">
-                            Total Happy Children
+                            Total Happy People
                         </p>
                     </div>
                 </div>
@@ -241,10 +251,10 @@ include 'header.php';
                     </div>
                     <div class="item-counter">
                         <h2 class="text-white quicksand m-0">
-                            <span class="counter">270</span>+
+                            <span class="counter">200</span>+
                         </h2>
                         <p class="text-white m-0" style="font-size: 14px">
-                            Total Our Volunteers
+                            Total Our Members
                         </p>
                     </div>
                 </div>
@@ -259,10 +269,10 @@ include 'header.php';
                     </div>
                     <div class="item-counter">
                         <h2 class="text-white quicksand m-0">
-                            <span class="counter">3000</span>+
+                            <span class="counter">20</span>+
                         </h2>
                         <p class="text-white m-0" style="font-size: 14px">
-                            Our Products and Gifts
+                            Event Completed
                         </p>
                     </div>
                 </div>
@@ -277,10 +287,10 @@ include 'header.php';
                     </div>
                     <div class="item-counter">
                         <h2 class="text-white quicksand m-0">
-                            <span class="counter">8700</span>+
+                            <span class="counter">200</span>K+
                         </h2>
                         <p class="text-white m-0" style="font-size: 14px">
-                            Total World Wide Donor
+                            Total Donation
                         </p>
                     </div>
                 </div>
@@ -295,7 +305,7 @@ include 'header.php';
         <div class="row">
             <div class="col-md-7">
                 <p
-                    class="text-green quicksand fw-bold"
+                    class="text-yellow quicksand fw-bold"
                     style="font-size: 16px"
                     id="reveal-up">
                     <i class="fa-solid fa-angles-left me-2"></i> OUR MISSION
@@ -378,7 +388,7 @@ include 'header.php';
         <div
             class="d-flex flex-column justify-content-center align-items-center">
             <h1 class="text-white quicksand fw-bold text-center" id="reveal-up">
-                Welcome To <span class="text-green">Youth For Rural Health</span><br />
+                Welcome To <span class="text-yellow">Save A Smile Foundation</span><br />
                 Want to make a Positive Impact?
             </h1>
             <p class="text-white quicksand my-4" id="reveal-left">
@@ -387,9 +397,9 @@ include 'header.php';
             </p>
             <a
                 href="get_involed.php"
-                class="custom-btn bg-green hover-dark-blue rounded p-3 px-4" id="reveal-down"
+                class="custom-btn bg-yellow hover-dark-blue rounded px-4" id="reveal-down"
                 style="font-size: 16px">
-                Get Involved
+                Donate Now
             </a>
         </div>
     </div>
@@ -399,7 +409,7 @@ include 'header.php';
 <section class="our-projects py-5">
     <div class="container py-5 px-4 px-lg-5">
         <p
-            class="text-green quicksand fw-bold text-center"
+            class="text-yellow quicksand fw-bold text-center"
             style="font-size: 16px"
             id="reveal-up">
             <i class="fa-solid fa-angles-left me-2"></i> OUR PROJECTS
@@ -409,132 +419,115 @@ include 'header.php';
             Works Across The Country
         </h1>
         <div class="row g-4">
+            <?php
+            $object->query = "SELECT * FROM projects LIMIT 4";
+
+            $result = $object->get_result();
+
+            foreach ($result as $row) {
+                echo '
             <div class="col-md-6" id="reveal-down">
                 <div class="project-item position-relative">
-                    <img src="img/1.jpg" class="img-fluid" />
+                    <img src="admin/' . $row["project_photo"] . '" class="img-fluid" />
                     <div
                         class="project-content d-flex justify-content-between align-items-center">
                         <h4>
-                            <a href="" class="text-white text-decoration-none">Project 1</a>
+                            <a href="project-single.php?project_id=' . $row["project_id"] . '" class="text-white text-decoration-none">' . $row["project_title"] . '</a>
                         </h4>
                         <a
-                            href=""
+                            href="project-single.php?project_id=' . $row["project_id"] . '"
                             class="text-decoration-none next-button d-flex justify-content-center align-items-center"><i class="fa-solid fa-arrow-right"></i></a>
                     </div>
                 </div>
             </div>
-            <div class="col-md-6" id="reveal-down">
-                <div class="project-item position-relative">
-                    <img src="img/orphan-banner-1.jpg" class="img-fluid" />
-                    <div
-                        class="project-content d-flex justify-content-between align-items-center">
-                        <h4>
-                            <a href="" class="text-white text-decoration-none">Project 2</a>
-                        </h4>
-                        <a
-                            href=""
-                            class="text-decoration-none next-button d-flex justify-content-center align-items-center"><i class="fa-solid fa-arrow-right"></i></a>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-6" id="reveal-down-2">
-                <div class="project-item position-relative">
-                    <img src="img/orphan-banner-1.jpg" class="img-fluid" />
-                    <div
-                        class="project-content d-flex justify-content-between align-items-center">
-                        <h4>
-                            <a href="" class="text-white text-decoration-none">Project 2</a>
-                        </h4>
-                        <a
-                            href=""
-                            class="text-decoration-none next-button d-flex justify-content-center align-items-center"><i class="fa-solid fa-arrow-right"></i></a>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-6" id="reveal-down-2">
-                <div class="project-item position-relative">
-                    <img src="img/orphan-banner-1.jpg" class="img-fluid" />
-                    <div
-                        class="project-content d-flex justify-content-between align-items-center">
-                        <h4>
-                            <a href="" class="text-white text-decoration-none">Project 2</a>
-                        </h4>
-                        <a
-                            href=""
-                            class="text-decoration-none next-button d-flex justify-content-center align-items-center"><i class="fa-solid fa-arrow-right"></i></a>
-                    </div>
-                </div>
-            </div>
+            ';
+            }
+            ?>
         </div>
     </div>
 </section>
 
 <!--Upcoming Events-->
-<section class="upcoming-events py-5">
-    <div class="event-overlayer"></div>
-    <div class="container py-5 px-4 px-lg-5">
-        <p
-            class="text-green quicksand fw-bold text-center"
-            style="font-size: 16px"
-            id="reveal-up">
-            <i class="fa-solid fa-angles-left me-2"></i> UPCOMING EVENTS
-            <i class="fa-solid fa-angles-right ms-2"></i>
-        </p>
-        <h1
-            class="quicksand fw-bold text-center text-white my-4 mb-5"
-            id="reveal-up">
-            Get Involved in Our Events
-        </h1>
-        <div class="row justify-content-center">
-            <div class="col-md-8 blog-item" id="reveal-left">
-                <div class="row">
-                    <div class="col-md-4 p-0">
-                        <div class="blog-image" style="height: 100%">
-                            <img src="img/1.jpg" />
+<?php
+$object->query = "SELECT * FROM events WHERE event_date >= CURDATE()";
+
+$object->execute();
+
+if ($object->row_count() > 0) {
+?>
+    <section class="upcoming-events py-5">
+        <div class="event-overlayer"></div>
+        <div class="container py-5 px-4 px-lg-5">
+            <p
+                class="text-yellow quicksand fw-bold text-center"
+                style="font-size: 16px"
+                id="reveal-up">
+                <i class="fa-solid fa-angles-left me-2"></i> UPCOMING EVENTS
+                <i class="fa-solid fa-angles-right ms-2"></i>
+            </p>
+            <h1
+                class="quicksand fw-bold text-center text-white my-4 mb-5"
+                id="reveal-up">
+                Get Involved in Our Events
+            </h1>
+            <div class="row justify-content-center">
+                <?php
+                $result = $object->get_result();
+
+                foreach ($result as $row) {
+                    echo '
+                <div class="col-md-8 blog-item" id="reveal-left">
+                    <div class="row">
+                        <div class="col-md-4 p-0">
+                            <div class="blog-image" style="height: 100%">
+                                <img src="admin/' . $row["event_photo"] . '" />
+                            </div>
                         </div>
-                    </div>
-                    <div class="col-md-8">
-                        <div
-                            class="blog-content d-flex flex-column justify-content-center">
-                            <ul class="d-flex align-items-center text-gray">
-                                <li>
-                                    <i class="fa-solid fa-location-dot me-2 text-green"></i>
-                                    Mirpur, Dhaka
-                                </li>
-                                <li class="ms-4">
-                                    <i class="fa-regular fa-clock me-2 text-green"></i> 09:00
-                                    AM
-                                </li>
-                                <li class="ms-4">
-                                    <i class="fa-solid fa-calendar-days me-2 text-green"></i>
-                                    12 June, 2021
-                                </li>
-                            </ul>
-                            <h4 class="my-3">
-                                <a href="" class="quicksand text-decoration-none text-dark">Event Title</a>
-                            </h4>
-                            <p class="text-gray mb-3" style="font-size: 14px">
-                                Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                                Obcaecati magni consectetur magnam error deserunt veniam
-                                ullam quod possimus porro ea?
-                            </p>
-                            <a
-                                href=""
-                                class="text-decoration-none text-gray"
-                                style="font-size: 14px">Explore More <i class="fa-solid fa-arrow-right ms-2"></i></a>
+                        <div class="col-md-8">
+                            <div
+                                class="blog-content d-flex flex-column justify-content-center">
+                                <ul class="d-flex align-items-center text-gray">
+                                    <li>
+                                        <i class="fa-solid fa-location-dot me-2 text-yellow"></i>
+                                        ' . $row["event_location"] . '
+                                    </li>
+                                    <li class="ms-4">
+                                        <i class="fa-regular fa-clock me-2 text-yellow"></i> ' . date('H:i A', strtotime($row["event_start_time"])) . '
+                                    </li>
+                                    <li class="ms-4">
+                                        <i class="fa-solid fa-calendar-days me-2 text-yellow"></i>
+                                        ' . date('d M, Y', strtotime($row["event_date"])) . '
+                                    </li>
+                                </ul>
+                                <h4 class="my-3">
+                                    <a href="event-single.php?event_id=' . $row["event_id"] . '" class="quicksand text-decoration-none text-dark">' . $row["event_name"] . '</a>
+                                </h4>
+                                <p class="text-gray mb-3" style="font-size: 14px">
+                                    ' . $row["event_short_description"] . '
+                                </p>
+                                <a
+                                    href="event-single.php?event_id=' . $row["event_id"] . '"
+                                    class="text-decoration-none text-gray"
+                                    style="font-size: 14px">Explore More <i class="fa-solid fa-arrow-right ms-2"></i></a>
+                            </div>
                         </div>
                     </div>
                 </div>
+                ';
+                }
+                ?>
             </div>
         </div>
-    </div>
-</section>
+    </section>
+<?php
+}
+?>
 
 <!--Blog and news-->
 <section class="blog-news py-5">
     <div class="container py-5 px-4 px-lg-5">
         <p
-            class="text-green quicksand fw-bold text-center"
+            class="text-yellow quicksand fw-bold text-center"
             style="font-size: 16px"
             id="reveal-up">
             <i class="fa-solid fa-angles-left me-2"></i> BLOG & NEWS
@@ -544,87 +537,49 @@ include 'header.php';
             Latest Blog & News
         </h1>
         <div class="row">
-            <div class="col-md-4 mb-4" id="reveal-left-3">
-                <div class="blog-item position-relative">
-                    <div class="blog-image">
-                        <img src="img/1.jpg" class="img" />
-                        <span class="blog-tag">Education</span>
-                    </div>
-                    <div class="blog-content">
-                        <ul class="d-flex align-items-center text-gray">
-                            <li>
-                                <i class="fa-regular fa-user me-2 text-green"></i> By Admin
-                            </li>
-                            <li class="ms-4">
-                                <i class="fa-solid fa-calendar-days me-2 text-green"></i> 12
-                                June, 2021
-                            </li>
-                        </ul>
-                        <h4 class="my-3">
-                            <a href="" class="quicksand text-decoration-none text-dark">Blog Title</a>
-                        </h4>
-                        <hr class="my-3" />
-                        <a
-                            href=""
-                            class="text-decoration-none text-gray"
-                            style="font-size: 14px">Read More <i class="fa-solid fa-arrow-right ms-2"></i></a>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-4 mb-4" id="reveal-left-2">
-                <div class="blog-item position-relative">
-                    <div class="blog-image">
-                        <img src="img/1.jpg" class="img" />
-                        <span class="blog-tag">Education</span>
-                    </div>
-                    <div class="blog-content">
-                        <ul class="d-flex align-items-center text-gray">
-                            <li>
-                                <i class="fa-regular fa-user me-2 text-green"></i> By Admin
-                            </li>
-                            <li class="ms-4">
-                                <i class="fa-regular fa-calendar me-2 text-green"></i> 12
-                                June, 2021
-                            </li>
-                        </ul>
-                        <h4 class="my-3">
-                            <a href="" class="quicksand text-decoration-none text-dark">Blog Title</a>
-                        </h4>
-                        <hr class="my-3" />
-                        <a
-                            href=""
-                            class="text-decoration-none text-gray"
-                            style="font-size: 14px">Read More <i class="fa-solid fa-arrow-right ms-2"></i></a>
+            <?php
+            $object->query = "SELECT fill_form.firstname, fill_form.lastname, news.* FROM news INNER JOIN fill_form ON fill_form.form_id = news.created_by ORDER BY news_date DESC LIMIT 3";
+
+            $result = $object->get_result();
+
+            foreach ($result as $row) {
+                $category = str_split($row["category"]);
+                if ($category[0] == 1)
+                    $category = "Donation";
+                else if ($category[0] != 1 && $category[1] == 1)
+                    $category = "Charity";
+                else if ($category[0] != 1 && $category[1] != 1 && $category[2] == 1)
+                    $category = "Medical";
+                echo '
+                <div class="col-md-4 mb-4" id="reveal-left-3">
+                    <div class="blog-item position-relative">
+                        <div class="blog-image">
+                            <img src="admin/' . $row["news_photo_link"] . '" class="img" />
+                            <span class="blog-tag">' . $category . '</span>
+                        </div>
+                        <div class="blog-content">
+                            <ul class="d-flex align-items-center text-gray">
+                                <li>
+                                    <i class="fa-regular fa-user me-2 text-yellow"></i> By ' . $row["firstname"] . ' ' . $row["lastname"] . '
+                                </li>
+                                <li class="ms-4">
+                                    <i class="fa-solid fa-calendar-days me-2 text-yellow"></i> ' . date("M d, Y", strtotime(($row["news_date"]))) . '
+                                </li>
+                            </ul>
+                            <h4 class="my-3">
+                                <a href="blog-single.php?news_id=' . $row["news_id"] . '" class="quicksand text-decoration-none text-dark">' . $row["news_title"] . '</a>
+                            </h4>
+                            <hr class="my-3" />
+                            <a
+                                href="blog-single.php?news_id=' . $row["news_id"] . '"
+                                class="text-decoration-none text-gray"
+                                style="font-size: 14px">Read More <i class="fa-solid fa-arrow-right ms-2"></i></a>
+                        </div>
                     </div>
                 </div>
-            </div>
-            <div class="col-md-4 mb-4" id="reveal-left">
-                <div class="blog-item position-relative">
-                    <div class="blog-image">
-                        <img src="img/1.jpg" class="img" />
-                        <span class="blog-tag">Education</span>
-                    </div>
-                    <div class="blog-content">
-                        <ul class="d-flex align-items-center text-gray">
-                            <li>
-                                <i class="fa-regular fa-user me-2 text-green"></i> By Admin
-                            </li>
-                            <li class="ms-4">
-                                <i class="fa-regular fa-calendar me-2 text-green"></i> 12
-                                June, 2021
-                            </li>
-                        </ul>
-                        <h4 class="my-3">
-                            <a href="" class="quicksand text-decoration-none text-dark">Blog Title</a>
-                        </h4>
-                        <hr class="my-3" />
-                        <a
-                            href=""
-                            class="text-decoration-none text-gray"
-                            style="font-size: 14px">Read More <i class="fa-solid fa-arrow-right ms-2"></i></a>
-                    </div>
-                </div>
-            </div>
+            ';
+            }
+            ?>
         </div>
     </div>
 </section>

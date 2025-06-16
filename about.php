@@ -5,51 +5,43 @@ include 'header.php';
 <!-- Header -->
 <div id="topbar">
     <div class="container px-0 px-lg-5">
-        <div class="row m-0 py-3 custom-border-bottom-yellow z-index">
-            <div
-                class="col-md-3 ps-0 ms-0 d-flex align-items-center justify-content-lg-start justify-content-center">
-                <a href="index.php"><img src="img/logo.png" width="180" /></a>
+        <div
+            class="d-flex justify-content-between py-3 align-items-center custom-border-bottom-yellow z-index">
+            <button
+                class="custom-btn d-lg-none bg-yellow rounded-normal ms-3"
+                style="font-size: 18px"
+                id="menu-btn">
+                <i class="fa-solid fa-bars"></i>
+            </button>
+            <a href="index.php"><img src="img/logo2.png" width="180" /></a>
+            <div class="sam" id="nav">
+                <ul class="nav">
+                    <li>
+                        <a href="index.php" class="nav-link">Home</a>
+                    </li>
+                    <li>
+                        <a href="about.php" class="nav-link active">About Us</a>
+                    </li>
+                    <li>
+                        <a href="projects.php" class="nav-link">Projects</a>
+                    </li>
+                    <li>
+                        <a href="events.php" class="nav-link">Events</a>
+                    </li>
+                    <li>
+                        <a href="blogs.php" class="nav-link">Blogs</a>
+                    </li>
+                    <li>
+                        <a href="contact.php" class="nav-link">Contact</a>
+                    </li>
+                </ul>
             </div>
-            <div
-                class="col-6 d-flex align-items-center justify-content-start justify-content-lg-center">
-                <button
-                    class="custom-btn d-lg-none bg-yellow rounded-normal"
-                    style="font-size: 18px"
-                    id="menu-btn">
-                    <i class="fa-solid fa-bars"></i>
-                </button>
-                <div class="sam" id="nav">
-                    <ul class="nav">
-                        <li>
-                            <a href="index.php" class="nav-link">Home</a>
-                        </li>
-                        <li>
-                            <a href="about.php" class="nav-link active">About Us</a>
-                        </li>
-                        <li>
-                            <a href="projects.php" class="nav-link">Projects</a>
-                        </li>
-                        <li>
-                            <a href="events.php" class="nav-link">Events</a>
-                        </li>
-                        <li>
-                            <a href="blogs.php" class="nav-link">Blogs</a>
-                        </li>
-                        <li>
-                            <a href="contact.php" class="nav-link">Contact</a>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-            <div
-                class="col-md-3 col-6 pe-lg-0 pe-3 me-0 d-flex align-items-center justify-content-end">
-                <a
-                    href="donate.php"
-                    class="custom-btn bg-green hover-dark-blue rounded"
-                    style="font-size: 13px">
-                    DONATE NOW
-                </a>
-            </div>
+            <a
+                href="donate.php"
+                class="custom-btn bg-green hover-dark-blue rounded me-3 me-lg-0"
+                style="font-size: 13px">
+                DONATE NOW
+            </a>
         </div>
     </div>
 </div>
@@ -73,31 +65,30 @@ include 'header.php';
     <div class="container py-5 px-4 px-lg-5">
         <div class="row">
             <div class="col-md-6 position-relative mb-4 mb-lg-0" id="reveal-left">
-                <img src="img/3.jpg" class="about-img about-img-1" />
-                <img src="img/2.jpg" class="about-img about-img-2" />
+                <img src="img/about_img.jpg" class="about-img about-img-1" />
+                <img src="img/card1.jpg" class="about-img about-img-2" />
                 <img src="img/about-dot.png" class="about-img about-dot" />
             </div>
             <div class="col-md-6">
                 <p
-                    class="text-green quicksand fw-bold"
+                    class="text-yellow quicksand fw-bold"
                     id="reveal-up"
                     style="font-size: 16px">
                     <i class="fa-solid fa-angles-left me-2"></i> ABOUT US
                     <i class="fa-solid fa-angles-right ms-2"></i>
                 </p>
                 <h1 class="quicksand fw-bold my-4" id="reveal-up">
-                    Discover Youth For Rural Health
+                    Discover Save A Smile Foundation
                 </h1>
                 <p
-                    class="text-gray quicksand my-4"
-                    style="font-size: 16px"
+                    class="text-secondary quicksand my-4"
+                    style="font-size: 16px; text-align: justify"
                     id="reveal-up">
-                    Youth for Rural Health is a non-profit voluntary organization that
-                    is dedicated to improving the health and well-being of rural
-                    communities in Bangladesh. We work with local communities to
-                    provide access to quality healthcare, education, and other
-                    essential services. Our goal is to empower young people to become
-                    leaders in their communities and create positive change.
+                    Save A Smile Foundation, a student-led non-profit in Chittagong
+                    Hill Tracts, Bangladesh, established in 2017, focuses on societal
+                    betterment. With over 200 members, it implements humanitarian
+                    programs, including medical aid, educational support, and
+                    seminars, aiming for nationwide development.
                 </p>
                 <div class="row" id="reveal-down">
                     <div class="col-6">
@@ -125,23 +116,28 @@ include 'header.php';
                         </ul>
                     </div>
                 </div>
-                <div class="d-flex align-items-center mt-4" id="reveal-down">
-                    <div class="me-3">
-                        <a
-                            href="about.php"
-                            class="custom-btn bg-green hover-dark-blue rounded py-3"
-                            style="font-size: 16px">
-                            LEARN MORE
-                        </a>
-                    </div>
-                    <div class="d-flex align-items-center">
+                <div class="d-flex align-items-center my-4">
+                    <div class="d-flex align-items-center me-4" id="reveal-right">
                         <div class="founder-photo me-3">
                             <img src="img/f1.png" />
                         </div>
                         <div class="founder-desc">
                             <h6 class="merriweather fw-bold">Himel Chakma</h6>
                             <p
-                                class="text-green text-uppercase m-0"
+                                class="text-yellow text-uppercase m-0"
+                                style="font-size: 13px">
+                                Co-Founder & Advisor
+                            </p>
+                        </div>
+                    </div>
+                    <div class="d-flex align-items-center" id="reveal-right-2">
+                        <div class="founder-photo me-3">
+                            <img src="img/f2.jpg" />
+                        </div>
+                        <div class="founder-desc">
+                            <h6 class="merriweather fw-bold">Lampra Tripura</h6>
+                            <p
+                                class="text-yellow text-uppercase m-0"
                                 style="font-size: 13px">
                                 Co-Founder & Advisor
                             </p>
@@ -242,7 +238,7 @@ include 'header.php';
         <div
             class="d-flex flex-column justify-content-center align-items-center">
             <h1 class="text-white quicksand fw-bold text-center" id="reveal-up">
-                Welcome To <span class="text-green">Youth For Rural Health</span><br />
+                Welcome To <span class="text-green">Save A Smile Foundation</span><br />
                 Want to make a Positive Impact?
             </h1>
             <p class="text-white quicksand my-4" id="reveal-left">

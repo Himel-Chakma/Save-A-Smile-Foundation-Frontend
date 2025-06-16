@@ -43,7 +43,7 @@ a {
   font-weight: 600;
   font-size: 20px;
   text-decoration: none;
-  color: var(--primary-green);
+  color: var(--primary-yellow);
 }
 .topbar p,
 .topbar a {
@@ -51,7 +51,7 @@ a {
   transition: color 0.3s ease-in-out;
 }
 .topbar a:hover {
-  color: var(--primary-green) !important;
+  color: var(--primary-yellow) !important;
 }
 .sticky {
   width: 100%;
@@ -79,14 +79,21 @@ a {
   color: black !important;
 }
 .nav-link:hover {
-  color: var(--primary-green) !important;
+  color: var(--primary-yellow) !important;
 }
 .nav-link.active {
-  color: var(--primary-green) !important;
+  color: var(--primary-yellow) !important;
+  font-weight: normal !important;
+}
+.nav-pills .nav-link {
+  color: black !important;
+}
+.nav-pills .nav-link.active {
+  color: white !important;
   font-weight: normal !important;
 }
 .bg-green {
-  background: var(--primary-green);
+  background: var(--primary-yellow);
 }
 .bg-yellow {
   background: var(--primary-yellow);
@@ -142,13 +149,13 @@ a {
   background: var(--primary-yellow);
 }
 .hover-green:hover {
-  background: var(--primary-green);
+  background: var(--primary-yellow);
 }
 .hover-dark-blue:hover {
   background: var(--dark-blue);
 }
 .hover-text-green:hover {
-  color: var(--primary-green) !important;
+  color: var(--primary-yellow) !important;
 }
 .custom-border-bottom-yellow {
   border-bottom: 0.5px solid rgba(255, 255, 255, 0.16) !important;
@@ -203,12 +210,12 @@ a {
   transition: all 0.6s ease-in-out;
 }
 .banner-button button.active {
-  border-color: var(--primary-green);
-  color: var(--primary-green);
+  border-color: var(--primary-yellow);
+  color: var(--primary-yellow);
 }
 .banner-button button:hover {
-  border-color: var(--primary-green);
-  color: var(--primary-green);
+  border-color: var(--primary-yellow);
+  color: var(--primary-yellow);
 }
 .mySwiper:hover .banner-button button {
   transform: translateX(0);
@@ -258,7 +265,7 @@ a {
   .sam {
     position: absolute;
     left: 0;
-    top: 100px;
+    top: 75px;
     width: 100%;
     background: white;
     display: none;
@@ -280,7 +287,7 @@ a {
     background: var(--primary-yellow) !important;
     color: white !important;
   }
-  .nav-item:nth-child(2) {
+  /* .nav-item:nth-child(2) {
     padding: 10px 20px !important;
     color: black;
   }
@@ -292,9 +299,9 @@ a {
   }
   .nav-item:hover .dropdown {
     display: none;
-  }
+  } */
   .mySwiper {
-    height: 300px;
+    height: 300px !important;
   }
   .banner-text {
     height: 300px;
@@ -340,7 +347,7 @@ a {
 .divider-red {
   width: 50px;
   height: 2px;
-  background: var(--primary-green);
+  background: var(--primary-yellow);
 }
 .divider-yellow {
   width: 50px;
@@ -374,7 +381,7 @@ a {
   background-image: radial-gradient(
     at top right,
     #e33c3400 40%,
-    var(--primary-green) 62%
+    var(--primary-yellow) 62%
   );
 }
 .overlay-2 {
@@ -414,12 +421,12 @@ a {
 }
 .item-icon {
   font-size: 50px;
-  color: var(--primary-green);
+  color: var(--primary-yellow);
 }
 .mission-icon {
   width: 70px;
   height: 70px;
-  background-color: var(--primary-green);
+  background-color: var(--primary-yellow);
 }
 .mission-icon img {
   width: 50px;
@@ -450,7 +457,7 @@ a {
   bottom: 0;
   left: 0;
   right: 0;
-  background: linear-gradient(0deg, #5cd139 0%, rgba(45, 247, 34, 0) 100%);
+  background: linear-gradient(0deg, #fcb900 0%, rgba(45, 247, 34, 0) 100%);
   transform: translateY(20px);
   opacity: 0;
   visibility: hidden;
@@ -488,11 +495,11 @@ a {
   width: 50px;
   height: 50px;
   background: white;
-  color: var(--primary-green);
+  color: var(--primary-yellow);
   font-size: 20px;
 }
 .banner-top {
-  background-image: url(../img/orphan-banner-1.jpg);
+  background-image: url(../img/gc3.jpg);
   background-repeat: no-repeat;
   background-position: center;
   background-size: cover;
@@ -504,7 +511,7 @@ a {
   width: 100%;
   height: 100%;
   background-color: black;
-  opacity: 0.7;
+  opacity: 0.65;
   position: absolute;
   top: 0;
   left: 0;
@@ -519,11 +526,92 @@ a {
 .project-icon {
   width: 50px;
   height: 50px;
-  background-color: var(--primary-green);
 }
 .project-icon img {
   width: 30px;
   height: 30px;
+}
+#projectslider {
+  height: 600px;
+}
+.committee img {
+  width: 180px;
+  height: 180px;
+  border-radius: 10px;
+  border-width: 3px;
+  border-style: solid;
+}
+.committee .member-name {
+  position: relative;
+  z-index: 2;
+  margin-top: -20px;
+  padding: 6px;
+  width: 220px;
+  color: white;
+  text-align: center;
+  border-radius: 20px;
+}
+.committee .member-rank {
+  position: relative;
+  z-index: 3;
+  background: #23c1f1;
+  padding: 6px;
+  width: 220px;
+  color: white;
+  text-align: center;
+  border-radius: 20px;
+  transform: rotate(-5deg);
+}
+.nav-tabs .nav-link {
+  border-radius: 0px !important;
+}
+.accordion .accordion-item .accordion-body * {
+  font-family: quicksand !important;
+}
+.accordion .accordion-item {
+  border: none !important;
+}
+.accordion .accordion-item h2 button {
+  border-radius: 0 !important;
+  box-shadow: none !important;
+  background-color: transparent !important;
+  color: black !important;
+  font-family: quicksand !important;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  position: relative;
+  padding-left: 0px !important;
+}
+.accordion .accordion-item h2 button.collapsed {
+  font-weight: normal;
+}
+.accordion .accordion-item h2 button::after {
+  display: none !important;
+}
+.accordion .accordion-item h2 button::before {
+  position: absolute;
+  content: "\f068";
+  font-family: "Font Awesome 5 Free";
+  font-weight: 700;
+  font-size: 15px;
+  top: 10px;
+  right: 25px;
+  width: 30px;
+  height: 30px;
+  border-radius: 0px;
+  color: white;
+  text-align: center;
+  line-height: 30px;
+  transition: all 0.4s ease-in-out;
+}
+.accordion .accordion-item h2 button.collapsed::before {
+  content: "\f067";
+  background-color: #f2f2f2;
+}
+.accordion-body img {
+  width: 30%;
+  float: right;
 }
 .overview-card {
   width: 100%;
@@ -552,18 +640,6 @@ a {
 .services h1 {
   font-size: 50px !important;
 }
-.accordion {
-  --bs-accordion-bg: none !important;
-  --bs-accordion-color: white !important;
-}
-.accordion button {
-  outline: none;
-  color: white !important;
-  font-family: "Merriweather", serif !important;
-}
-.accordion button::after {
-  color: white !important;
-}
 footer {
   background: #252525;
 }
@@ -588,7 +664,7 @@ footer {
 }
 .blog-item:hover a,
 .blog-item:hover h4 {
-  color: var(--primary-green) !important;
+  color: var(--primary-yellow) !important;
 }
 .blog-content {
   padding: 30px;
@@ -607,7 +683,7 @@ footer {
 .blog-tag {
   font-size: 14px;
   color: white;
-  background-color: var(--primary-green);
+  background-color: var(--primary-yellow);
   border-radius: 4px;
   padding: 4px 14px;
   display: inline-block;
@@ -634,8 +710,8 @@ footer {
   margin-bottom: 0;
 }
 .blog-category li:hover {
-  background: var(--primary-green);
-  border: 1px solid var(--primary-green);
+  background: var(--primary-yellow);
+  border: 1px solid var(--primary-yellow);
 }
 .blog-category li:hover a,
 .blog-category li:hover span {
@@ -644,7 +720,7 @@ footer {
 .event-date {
   font-size: 12px;
   color: white;
-  background-color: var(--primary-green);
+  background-color: var(--primary-yellow);
   padding: 4px 14px;
   display: inline-block;
   position: absolute;
@@ -683,7 +759,7 @@ footer {
   transition: transform 0.3s ease-in-out, color 0.3s ease-in;
 }
 .links a:hover {
-  color: var(--primary-green);
+  color: var(--primary-yellow);
   transform: translateX(10px);
 }
 .social {
@@ -713,13 +789,13 @@ footer {
   background: var(--primary-yellow);
 }
 .committee .social-links a:hover {
-  background: var(--primary-green);
+  background: var(--primary-yellow);
 }
 .contact-card {
   width: 100%;
   height: 250px;
   position: relative;
-  padding: 30px;
+  /* padding: 30px; */
   display: flex;
   justify-content: center;
   align-items: center;
@@ -745,7 +821,7 @@ footer {
   outline: none;
 }
 .custom-form-control:focus {
-  border: 1px solid var(--primary-green);
+  border: 1px solid var(--primary-yellow);
 }
 .project-image {
   width: 100%;
@@ -756,7 +832,7 @@ footer {
   height: 100%;
 }
 .get-involved-cards {
-  background: url(../img/orphan-banner-1.jpg);
+  background: url(../img/gc.jpg);
   background-position: center;
   background-size: cover;
   background-repeat: no-repeat;
@@ -794,10 +870,10 @@ footer {
   z-index: -1;
 }
 .get-involved-card.card-green::before {
-  background-color: var(--primary-green);
+  background-color: var(--primary-green) !important;
 }
 .get-involved-card.card-yellow::before {
-  background-color: var(--primary-yellow);
+  background-color: var(--primary-yellow) !important;
 }
 .get-involved-icon {
   width: 60px;
@@ -820,6 +896,13 @@ footer {
   }
   .project-single-content {
     padding: 30px 20px;
+  }
+  .project-item {
+    height: 250px !important;
+  }
+  .accordion-body img {
+    width: 100%;
+    float: none;
   }
   .banner-top {
     padding: 50px 0px;
@@ -874,7 +957,11 @@ footer {
 }
 .events {
   background-color: transparent;
-  background-image: linear-gradient(90deg, white 55%, var(--primary-green) 40%);
+  background-image: linear-gradient(
+    90deg,
+    white 55%,
+    var(--primary-yellow) 40%
+  );
 }
 .event-icon {
   width: 70px;
@@ -894,7 +981,7 @@ footer {
   content: "";
   width: 50px;
   height: 2px;
-  background: var(--primary-green);
+  background: var(--primary-yellow);
   display: block;
   margin-top: 10px;
 }
@@ -921,9 +1008,9 @@ footer {
   font-size: 14px;
 }
 .tags a:hover {
-  background: var(--primary-green);
+  background: var(--primary-yellow);
   color: white;
-  border: 1px solid var(--primary-green);
+  border: 1px solid var(--primary-yellow);
 }
 .blog-info-icon {
   width: 80px;
@@ -946,7 +1033,7 @@ footer {
   font-size: 14px;
 }
 .about-us ul li i {
-  color: var(--primary-green);
+  color: var(--primary-yellow);
 }
 .about-img {
   position: absolute;
@@ -1030,49 +1117,6 @@ footer {
   .gallery img {
     height: 150px !important;
   }
-}
-.accordion {
-  background-color: white;
-  color: black;
-  cursor: pointer;
-  padding: 16px 24px;
-  width: 100%;
-  border: none;
-  text-align: left;
-  outline: none;
-  font-size: 16px;
-  transition: 0.4s;
-  border-radius: 24px;
-}
-
-.accordion.active {
-  background-color: var(--primary-green);
-  color: white;
-}
-
-.accordion.acc2.active {
-  background-color: var(--primary-yellow);
-  color: white;
-}
-
-.accordion:after {
-  content: "\002B";
-  color: black;
-  font-weight: bold;
-  float: right;
-  margin-left: 5px;
-}
-
-.accordion.active:after {
-  content: "\2212";
-  color: white;
-}
-
-.panel {
-  padding: 0 18px;
-  max-height: 0;
-  overflow: hidden;
-  transition: max-height 0.2s ease-out;
 }
 .card-icon img {
   width: 100px;

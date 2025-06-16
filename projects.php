@@ -1,55 +1,49 @@
 <?php
+include('admin/main.php');
+$object = new batch_details();
 include 'header.php';
 ?>
 
 <!-- Header -->
 <div id="topbar">
     <div class="container px-0 px-lg-5">
-        <div class="row m-0 py-3 custom-border-bottom-yellow z-index">
-            <div
-                class="col-md-3 ps-0 ms-0 d-flex align-items-center justify-content-lg-start justify-content-center">
-                <a href="index.php"><img src="img/logo.png" width="180" /></a>
+        <div
+            class="d-flex justify-content-between py-3 align-items-center custom-border-bottom-yellow z-index">
+            <button
+                class="custom-btn d-lg-none bg-yellow rounded-normal ms-3"
+                style="font-size: 18px"
+                id="menu-btn">
+                <i class="fa-solid fa-bars"></i>
+            </button>
+            <a href="index.php"><img src="img/logo2.png" width="180" /></a>
+            <div class="sam" id="nav">
+                <ul class="nav">
+                    <li>
+                        <a href="index.php" class="nav-link">Home</a>
+                    </li>
+                    <li>
+                        <a href="about.php" class="nav-link">About Us</a>
+                    </li>
+                    <li>
+                        <a href="projects.php" class="nav-link active">Projects</a>
+                    </li>
+                    <li>
+                        <a href="events.php" class="nav-link">Events</a>
+                    </li>
+                    <li>
+                        <a href="blogs.php" class="nav-link">Blogs</a>
+                    </li>
+                    <li>
+                        <a href="contact.php" class="nav-link">Contact</a>
+                    </li>
+                </ul>
             </div>
-            <div
-                class="col-6 d-flex align-items-center justify-content-start justify-content-lg-center">
-                <button
-                    class="custom-btn d-lg-none bg-yellow rounded-normal"
-                    style="font-size: 18px"
-                    id="menu-btn">
-                    <i class="fa-solid fa-bars"></i>
-                </button>
-                <div class="sam" id="nav">
-                    <ul class="nav">
-                        <li>
-                            <a href="index.php" class="nav-link">Home</a>
-                        </li>
-                        <li>
-                            <a href="about.php" class="nav-link">About Us</a>
-                        </li>
-                        <li>
-                            <a href="projects.php" class="nav-link active">Projects</a>
-                        </li>
-                        <li>
-                            <a href="events.php" class="nav-link">Events</a>
-                        </li>
-                        <li>
-                            <a href="blogs.php" class="nav-link">Blogs</a>
-                        </li>
-                        <li>
-                            <a href="contact.php" class="nav-link">Contact</a>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-            <div
-                class="col-md-3 col-6 pe-lg-0 pe-3 me-0 d-flex align-items-center justify-content-end">
-                <a
-                    href="donate.php"
-                    class="custom-btn bg-green hover-dark-blue rounded"
-                    style="font-size: 13px">
-                    DONATE NOW
-                </a>
-            </div>
+            <a
+                href="donate.php"
+                class="custom-btn bg-green hover-dark-blue rounded me-3 me-lg-0"
+                style="font-size: 13px">
+                DONATE NOW
+            </a>
         </div>
     </div>
 </div>
@@ -72,62 +66,30 @@ include 'header.php';
 <section class="our-projects py-5">
     <div class="container py-5 px-4 px-lg-5">
         <div class="row g-4">
+            <?php
+            $object->query = "SELECT * FROM projects";
+
+            $results = $object->get_result();
+
+            foreach ($results as $row) {
+                echo '      
             <div class="col-md-6" id="reveal-down">
                 <div class="project-item position-relative">
-                    <img src="img/1.jpg" class="img-fluid" />
+                    <img src="admin/' . $row["project_photo"] . '" class="img-fluid" />
                     <div
                         class="project-content d-flex justify-content-between align-items-center">
                         <h4>
-                            <a href="project-single.php" class="text-white text-decoration-none">Project 1</a>
+                            <a href="project-single.php?project_id=' . $row["project_id"] . '" class="text-white text-decoration-none">' . $row["project_title"] . '</a>
                         </h4>
                         <a
-                            href="project-single.php"
+                            href="project-single.php?project_id=' . $row["project_id"] . '"
                             class="text-decoration-none next-button d-flex justify-content-center align-items-center"><i class="fa-solid fa-arrow-right"></i></a>
                     </div>
                 </div>
             </div>
-            <div class="col-md-6" id="reveal-down">
-                <div class="project-item position-relative">
-                    <img src="img/orphan-banner-1.jpg" class="img-fluid" />
-                    <div
-                        class="project-content d-flex justify-content-between align-items-center">
-                        <h4>
-                            <a href="" class="text-white text-decoration-none">Project 2</a>
-                        </h4>
-                        <a
-                            href=""
-                            class="text-decoration-none next-button d-flex justify-content-center align-items-center"><i class="fa-solid fa-arrow-right"></i></a>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-6" id="reveal-down-2">
-                <div class="project-item position-relative">
-                    <img src="img/orphan-banner-1.jpg" class="img-fluid" />
-                    <div
-                        class="project-content d-flex justify-content-between align-items-center">
-                        <h4>
-                            <a href="" class="text-white text-decoration-none">Project 2</a>
-                        </h4>
-                        <a
-                            href=""
-                            class="text-decoration-none next-button d-flex justify-content-center align-items-center"><i class="fa-solid fa-arrow-right"></i></a>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-6" id="reveal-down-2">
-                <div class="project-item position-relative">
-                    <img src="img/orphan-banner-1.jpg" class="img-fluid" />
-                    <div
-                        class="project-content d-flex justify-content-between align-items-center">
-                        <h4>
-                            <a href="" class="text-white text-decoration-none">Project 2</a>
-                        </h4>
-                        <a
-                            href=""
-                            class="text-decoration-none next-button d-flex justify-content-center align-items-center"><i class="fa-solid fa-arrow-right"></i></a>
-                    </div>
-                </div>
-            </div>
+            ';
+            }
+            ?>
         </div>
     </div>
 </section>

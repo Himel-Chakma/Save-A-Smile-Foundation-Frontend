@@ -5,7 +5,7 @@
             <div
                 class="col-md-3 d-flex align-items-lg-start align-items-center flex-column mb-4"
                 id="reveal-left">
-                <img src="img/logo_white.png" width="180" />
+                <img src="img/logo.png" width="180" />
                 <p
                     class="mt-3 text-gray pe-4"
                     style="font-size: 15px; text-align: justify">
@@ -84,7 +84,7 @@
     <div
         class="text-center bg-dark text-white py-3"
         style="background-color: #292a2e">
-        © All Copyright 2024 by Organization
+        © All Copyright 2024 by Save A Smile Foundation
     </div>
 </footer>
 </body>
@@ -106,7 +106,7 @@
             document.documentElement.clientHeight;
         let scrollValue = Math.round((pos * 100) / calcHeight);
 
-        scrollProgress.style.background = `conic-gradient(#7bca17 ${scrollValue}%, #eeeeee ${scrollValue}%)`;
+        scrollProgress.style.background = `conic-gradient(#fcb900 ${scrollValue}%, #eeeeee ${scrollValue}%)`;
     };
 
     window.onscroll = function() {

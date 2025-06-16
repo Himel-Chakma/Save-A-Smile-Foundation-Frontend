@@ -5,51 +5,43 @@ include 'header.php';
 <!-- Header -->
 <div id="topbar">
     <div class="container px-0 px-lg-5">
-        <div class="row m-0 py-3 custom-border-bottom-yellow z-index">
-            <div
-                class="col-md-3 ps-0 ms-0 d-flex align-items-center justify-content-lg-start justify-content-center">
-                <a href="index.php"><img src="img/logo.png" width="180" /></a>
+        <div
+            class="d-flex justify-content-between py-3 align-items-center custom-border-bottom-yellow z-index">
+            <button
+                class="custom-btn d-lg-none bg-yellow rounded-normal ms-3"
+                style="font-size: 18px"
+                id="menu-btn">
+                <i class="fa-solid fa-bars"></i>
+            </button>
+            <a href="index.php"><img src="img/logo2.png" width="180" /></a>
+            <div class="sam" id="nav">
+                <ul class="nav">
+                    <li>
+                        <a href="index.php" class="nav-link">Home</a>
+                    </li>
+                    <li>
+                        <a href="about.php" class="nav-link">About Us</a>
+                    </li>
+                    <li>
+                        <a href="projects.php" class="nav-link">Projects</a>
+                    </li>
+                    <li>
+                        <a href="events.php" class="nav-link">Events</a>
+                    </li>
+                    <li>
+                        <a href="blogs.php" class="nav-link">Blogs</a>
+                    </li>
+                    <li>
+                        <a href="contact.php" class="nav-link">Contact</a>
+                    </li>
+                </ul>
             </div>
-            <div
-                class="col-6 d-flex align-items-center justify-content-start justify-content-lg-center">
-                <button
-                    class="custom-btn d-lg-none bg-yellow rounded-normal"
-                    style="font-size: 18px"
-                    id="menu-btn">
-                    <i class="fa-solid fa-bars"></i>
-                </button>
-                <div class="sam" id="nav">
-                    <ul class="nav">
-                        <li>
-                            <a href="index.php" class="nav-link">Home</a>
-                        </li>
-                        <li>
-                            <a href="about.php" class="nav-link">About Us</a>
-                        </li>
-                        <li>
-                            <a href="projects.php" class="nav-link">Projects</a>
-                        </li>
-                        <li>
-                            <a href="events.php" class="nav-link">Events</a>
-                        </li>
-                        <li>
-                            <a href="blogs.php" class="nav-link">Blogs</a>
-                        </li>
-                        <li>
-                            <a href="contact.php" class="nav-link">Contact</a>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-            <div
-                class="col-md-3 col-6 pe-lg-0 pe-3 me-0 d-flex align-items-center justify-content-end">
-                <a
-                    href="donate.php"
-                    class="custom-btn bg-green hover-dark-blue rounded"
-                    style="font-size: 13px">
-                    DONATE NOW
-                </a>
-            </div>
+            <a
+                href="donate.php"
+                class="custom-btn bg-green hover-dark-blue rounded me-3 me-lg-0"
+                style="font-size: 13px">
+                DONATE NOW
+            </a>
         </div>
     </div>
 </div>
@@ -63,7 +55,7 @@ include 'header.php';
             Get Involved
         </h2>
         <div class="breadcrumb-list" id="reveal-left">
-            <a href="index.html" class="text-white">Home</a>
+            <a href="index.php" class="text-white">Home</a>
             <i class="fa-solid fa-angles-right text-white mx-2"></i>
             <span class="text-green">Get Involved</span>
         </div>
@@ -77,7 +69,7 @@ include 'header.php';
             <div class="col-md-4" id="reveal-left">
                 <div
                     class="get-involved-card"
-                    style="background-image: url('img/1.jpg')">
+                    style="background-image: url('img/g1.jpg')">
                     <div
                         class="d-flex flex-column justify-content-center align-items-center p-4 py-5 h-100 get-involved-content">
                         <div
@@ -94,7 +86,7 @@ include 'header.php';
                             eget nunc vitae.
                         </p>
                         <a
-                            href="volunteer.html"
+                            href="volunteer.php"
                             class="custom-btn bg-white text-red text-uppercase rounded mt-3 quicksand fw-bold"
                             style="font-size: 16px">Join Us Now</a>
                     </div>
@@ -102,13 +94,13 @@ include 'header.php';
             </div>
             <div class="col-md-4" id="reveal-up">
                 <div
-                    class="get-involved-card card-green"
-                    style="background-image: url('img/1.jpg')">
+                    class="get-involved-card card-yellow"
+                    style="background-image: url('img/g2.jpg')">
                     <div
                         class="d-flex flex-column justify-content-center align-items-center p-4 py-5 h-100 get-involved-content">
                         <div
                             class="get-involved-icon d-flex justify-content-center align-items-center">
-                            <i class="fa-solid fa-heart-circle-plus text-green"></i>
+                            <i class="fa-solid fa-heart-circle-plus text-yellow"></i>
                         </div>
                         <h4 class="my-3 quicksand fw-bold text-white">Get Involved</h4>
                         <p
@@ -118,21 +110,21 @@ include 'header.php';
                             eget nunc vitae.
                         </p>
                         <a
-                            href="volunteer.html"
-                            class="custom-btn bg-white text-green text-uppercase rounded mt-3 quicksand fw-bold"
+                            href="volunteer.php"
+                            class="custom-btn bg-white text-yellow text-uppercase rounded mt-3 quicksand fw-bold"
                             style="font-size: 16px">Join Us Now</a>
                     </div>
                 </div>
             </div>
             <div class="col-md-4" id="reveal-right">
                 <div
-                    class="get-involved-card card-yellow"
-                    style="background-image: url('img/1.jpg')">
+                    class="get-involved-card card-green"
+                    style="background-image: url('img/g3.jpg')">
                     <div
                         class="d-flex flex-column justify-content-center align-items-center p-4 py-5 h-100 get-involved-content">
                         <div
                             class="get-involved-icon d-flex justify-content-center align-items-center">
-                            <i class="fa-solid fa-hand-holding-medical text-yellow"></i>
+                            <i class="fa-solid fa-hand-holding-medical text-green"></i>
                         </div>
                         <h4 class="my-3 quicksand fw-bold text-white">
                             Treat A Patient
@@ -144,8 +136,8 @@ include 'header.php';
                             eget nunc vitae.
                         </p>
                         <a
-                            href="volunteer.html"
-                            class="custom-btn bg-white text-yellow text-uppercase rounded mt-3 quicksand fw-bold"
+                            href="volunteer.php"
+                            class="custom-btn bg-white text-green text-uppercase rounded mt-3 quicksand fw-bold"
                             style="font-size: 16px">Join Us Now</a>
                     </div>
                 </div>
@@ -159,7 +151,7 @@ include 'header.php';
     <div class="container px-5 py-5 mb-5">
         <div class="row g-5">
             <div class="col-md-6 d-flex align-items-center" id="reveal-left">
-                <img src="img/Volunteer Team.jpg" class="img-fluid" />
+                <img src="img/v1.jpg" class="img-fluid" />
             </div>
             <div class="col-md-6">
                 <p
@@ -243,56 +235,41 @@ include 'header.php';
                     Member Benefit
                 </h1>
                 <p
-                    class="text-gray quicksand my-4 text-justify"
+                    class="text-dark quicksand my-4 text-justify"
                     style="font-size: 14px"
                     id="reveal-up">
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Illo non
-                    esse debitis sed quasi enim iure tempora quo amet autem magni
-                    assumenda voluptates dolorum repudiandae sequi in accusantium
-                    atque id ea, vitae sint recusandae! Voluptatum, fugiat neque nihil
-                    reprehenderit obcaecati quod doloremque? Nam excepturi voluptate
-                    iure incidunt natus distinctio, voluptatum doloribus esse
-                    perferendis officia, reprehenderit qui.
+                    Becoming a member of the <b>Youth Save A Smile Foundation</b> is more than just volunteering—it's about being part of a youth-led movement committed to real change. As a member, you'll gain the opportunity to work on impactful projects across education, health, and environmental sectors, especially in underserved regions like the Chittagong Hill Tracts. Whether you're contributing ideas, managing tasks, or leading initiatives, your involvement will help shape a better future for marginalized communities.
                 </p>
                 <p
-                    class="text-gray quicksand my-4 text-justify"
+                    class="text-dark quicksand my-4 text-justify"
                     style="font-size: 14px"
                     id="reveal-up">
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Illo non
-                    esse debitis sed quasi enim iure tempora quo amet autem magni
-                    assumenda voluptates dolorum repudiandae sequi in accusantium
-                    atque id ea, vitae sint recusandae!
+                    At the same time, you'll be developing valuable personal and professional skills that extend beyond the Foundation. Members are encouraged to explore their interests, take initiative, and grow through experience-based learning. With flexible, task-oriented roles and an open environment for creativity and leadership, the Youth Save A Smile Foundation empowers you to create impact while building a strong foundation for your own journey.
                 </p>
                 <div class="row" id="reveal-down">
                     <div class="col-6">
                         <ul>
                             <li class="mb-4">
-                                <i class="fa-regular fa-circle-check me-2"></i> Immediate
-                                Assistance
+                                <i class="fa-regular fa-circle-check me-2"></i> Real-world project experience
                             </li>
                             <li class="mb-4">
-                                <i class="fa-regular fa-circle-check me-2"></i> Long-Time
-                                Support
+                                <i class="fa-regular fa-circle-check me-2"></i> Leadership and skill development
                             </li>
                             <li class="mb-4">
-                                <i class="fa-regular fa-circle-check me-2"></i> Long-Time
-                                Support
+                                <i class="fa-regular fa-circle-check me-2"></i> Flexible, task-based roles
                             </li>
                         </ul>
                     </div>
                     <div class="col-6">
                         <ul>
                             <li class="mb-4">
-                                <i class="fa-regular fa-circle-check me-2"></i> Immediate
-                                Assistance
+                                <i class="fa-regular fa-circle-check me-2"></i> Certificates and special rewards
                             </li>
                             <li class="mb-4">
-                                <i class="fa-regular fa-circle-check me-2"></i> Long-Time
-                                Support
+                                <i class="fa-regular fa-circle-check me-2"></i> Freedom to launch your own ideas
                             </li>
                             <li class="mb-4">
-                                <i class="fa-regular fa-circle-check me-2"></i> Long-Time
-                                Support
+                                <i class="fa-regular fa-circle-check me-2"></i> Make a real impact in communities
                             </li>
                         </ul>
                     </div>
@@ -300,7 +277,7 @@ include 'header.php';
             </div>
             <div class="col-md-6">
                 <div class="d-flex align-items-center h-100" id="reveal-right">
-                    <img src="img/volunteer2.jpg" class="img-fluid" />
+                    <img src="img/v2.jpg" class="img-fluid" />
                 </div>
             </div>
         </div>
