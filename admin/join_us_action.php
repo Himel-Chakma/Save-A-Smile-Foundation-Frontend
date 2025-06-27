@@ -47,7 +47,7 @@ if (isset($_POST["action"])) {
         // mail($email, $subject, $message, $headers)
 
         if (1) {
-            echo json_encode(['success' => true, 'message' => 'Verification code sent' . $_SESSION['verification_code']]);
+            echo json_encode(['success' => true, 'message' => 'Verification code sent to your email' . $_SESSION['verification_code']]);
         } else {
             echo json_encode(['success' => false, 'message' => 'Failed to send email']);
         }
@@ -71,25 +71,6 @@ if (isset($_POST["action"])) {
             echo json_encode(['success' => true, 'message' => 'Email verified successfully']);
         } else {
             echo json_encode(['success' => false, 'message' => 'Invalid or expired verification code']);
-        }
-    }
-
-    if ($_POST["action"] == 'get_upazilas') {
-        $district_upazilas = [
-            'Dhaka' => ['Dhamrai', 'Dohar', 'Keraniganj', 'Nawabganj', 'Savar', 'Tejgaon'],
-            'Chittagong' => ['Anwara', 'Banshkhali', 'Boalkhali', 'Chandanaish', 'Fatikchhari', 'Hathazari', 'Lohagara', 'Mirsharai', 'Patiya', 'Rangunia', 'Raozan', 'Sandwip', 'Satkania', 'Sitakunda'],
-            'Sylhet' => ['Balaganj', 'Beanibazar', 'Bishwanath', 'Companigonj', 'Fenchuganj', 'Golapganj', 'Gowainghat', 'Jaintiapur', 'Kanaighat', 'Osmani Nagar', 'Zakiganj'],
-            'Rajshahi' => ['Bagha', 'Bagmara', 'Charghat', 'Durgapur', 'Godagari', 'Mohanpur', 'Paba', 'Puthia', 'Tanore'],
-            'Khulna' => ['Batiaghata', 'Dacope', 'Dumuria', 'Dighalia', 'Koyra', 'Paikgacha', 'Phultala', 'Rupsa', 'Terokhada'],
-            'Barishal' => ['Agailjhara', 'Babuganj', 'Bakerganj', 'Banaripara', 'Gaurnadi', 'Hizla', 'Mehendiganj', 'Muladi', 'Wazirpur'],
-            'Rangpur' => ['Badarganj', 'Gangachara', 'Kaunia', 'Mithapukur', 'Pirgachha', 'Pirganj', 'Taraganj'],
-            'Mymensingh' => ['Bhaluka', 'Dhobaura', 'Fulbaria', 'Gaffargaon', 'Gouripur', 'Haluaghat', 'Ishwarganj', 'Muktagachha', 'Nandail', 'Phulpur', 'Trishal']
-        ];
-
-        if ($_POST['district'] && isset($district_upazilas[$_POST['district']])) {
-            echo json_encode($district_upazilas[$_POST['district']]);
-        } else {
-            echo json_encode([]);
         }
     }
 }

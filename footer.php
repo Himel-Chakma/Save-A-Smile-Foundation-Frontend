@@ -110,11 +110,7 @@
     };
 
     window.onscroll = function() {
-        myFunction3();
-        scrollPercentage();
-    };
-    window.onload = function() {
-        myFunction3();
+        // myFunction3();
         scrollPercentage();
     };
 
@@ -138,62 +134,62 @@
 </script>
 
 <script>
-    ScrollReveal({
-        reset: true,
-        distance: "50px",
-        duration: 2000,
-        delay: 200,
-    });
+    // ScrollReveal({
+    //     reset: true,
+    //     distance: "50px",
+    //     duration: 2000,
+    //     delay: 200,
+    // });
 
-    ScrollReveal().reveal("#reveal-left", {
-        delay: 200,
-        origin: "left",
-    });
+    // ScrollReveal().reveal("#reveal-left", {
+    //     delay: 200,
+    //     origin: "left",
+    // });
 
-    ScrollReveal().reveal("#reveal-right", {
-        delay: 200,
-        origin: "right",
-    });
+    // ScrollReveal().reveal("#reveal-right", {
+    //     delay: 200,
+    //     origin: "right",
+    // });
 
-    ScrollReveal().reveal("#reveal-up", {
-        delay: 200,
-        origin: "top",
-    });
+    // ScrollReveal().reveal("#reveal-up", {
+    //     delay: 200,
+    //     origin: "top",
+    // });
 
-    ScrollReveal().reveal("#reveal-down", {
-        delay: 200,
-        origin: "bottom",
-    });
+    // ScrollReveal().reveal("#reveal-down", {
+    //     delay: 200,
+    //     origin: "bottom",
+    // });
 
-    ScrollReveal().reveal("#reveal-left-2", {
-        delay: 400,
-        origin: "left",
-    });
+    // ScrollReveal().reveal("#reveal-left-2", {
+    //     delay: 400,
+    //     origin: "left",
+    // });
 
-    ScrollReveal().reveal("#reveal-left-3", {
-        delay: 600,
-        origin: "left",
-    });
+    // ScrollReveal().reveal("#reveal-left-3", {
+    //     delay: 600,
+    //     origin: "left",
+    // });
 
-    ScrollReveal().reveal("#reveal-right-2", {
-        delay: 400,
-        origin: "right",
-    });
+    // ScrollReveal().reveal("#reveal-right-2", {
+    //     delay: 400,
+    //     origin: "right",
+    // });
 
-    ScrollReveal().reveal("#reveal-right-3", {
-        delay: 600,
-        origin: "right",
-    });
+    // ScrollReveal().reveal("#reveal-right-3", {
+    //     delay: 600,
+    //     origin: "right",
+    // });
 
-    ScrollReveal().reveal("#reveal-up-2", {
-        delay: 400,
-        origin: "top",
-    });
+    // ScrollReveal().reveal("#reveal-up-2", {
+    //     delay: 400,
+    //     origin: "top",
+    // });
 
-    ScrollReveal().reveal("#reveal-down-2", {
-        delay: 400,
-        origin: "bottom",
-    });
+    // ScrollReveal().reveal("#reveal-down-2", {
+    //     delay: 400,
+    //     origin: "bottom",
+    // });
 </script>
 
 </html>

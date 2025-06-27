@@ -110,7 +110,7 @@ include 'header.php';
                             eget nunc vitae.
                         </p>
                         <a
-                            href="volunteer.php"
+                            href="join_form.php"
                             class="custom-btn bg-white text-yellow text-uppercase rounded mt-3 quicksand fw-bold"
                             style="font-size: 16px">Join Us Now</a>
                     </div>

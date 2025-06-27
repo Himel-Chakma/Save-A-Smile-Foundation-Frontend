@@ -25,6 +25,185 @@ if ($object->row_count() == 0) {
     $object->execute();
 }
 ?>
+<style>
+    /* Loader overlay styles */
+    #loader-overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        z-index: 9999;
+        transition: opacity 0.5s ease-out, visibility 0.5s ease-out;
+    }
+
+    #loader-overlay.hide {
+        opacity: 0;
+        visibility: hidden;
+    }
+
+    /* Main content styles */
+    #main-content {
+        opacity: 0;
+        transition: opacity 0.5s ease-in;
+        padding: 40px;
+        max-width: 1200px;
+        margin: 0 auto;
+    }
+
+    #main-content.show {
+        opacity: 1;
+    }
+
+    .loader-container {
+        text-align: center;
+        position: relative;
+    }
+
+    .logo-loader {
+        width: 120px;
+        height: 120px;
+        margin: 0 auto 30px;
+        position: relative;
+    }
+
+    .logo-image {
+        width: 100%;
+        height: 100%;
+        background-image: url("img/logo222.png");
+        background-size: contain;
+        background-repeat: no-repeat;
+        background-position: center;
+        animation: logoSpin 2s linear infinite;
+    }
+
+    .pulse-ring {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        width: 140px;
+        height: 140px;
+        border: 3px solid rgba(255, 193, 7, 0.3);
+        border-radius: 50%;
+        transform: translate(-50%, -50%);
+        animation: pulseRing 2s ease-out infinite;
+    }
+
+    .loading-text {
+        font-size: 20px;
+        font-weight: 600;
+        color: #ff6b35;
+        margin-bottom: 10px;
+        animation: textFade 1.5s ease-in-out infinite;
+    }
+
+    .loading-subtext {
+        font-size: 14px;
+        color: #6c757d;
+        opacity: 0.8;
+    }
+
+    .progress-bar {
+        width: 200px;
+        height: 4px;
+        background: #e9ecef;
+        border-radius: 2px;
+        margin: 20px auto 0;
+        overflow: hidden;
+        position: relative;
+    }
+
+    .progress-fill {
+        height: 100%;
+        background: linear-gradient(90deg, #ffc107, #ff9800, #ff6b35);
+        border-radius: 2px;
+        width: 0%;
+        transition: width 0.3s ease;
+    }
+
+    @keyframes logoSpin {
+        0% {
+            transform: scale(1);
+        }
+
+        25% {
+            transform: scale(1.05);
+        }
+
+        50% {
+            transform: scale(1);
+        }
+
+        75% {
+            transform: scale(1.05);
+        }
+
+        100% {
+            transform: scale(1);
+        }
+    }
+
+    @keyframes pulseRing {
+        0% {
+            transform: translate(-50%, -50%) scale(0.8);
+            opacity: 1;
+        }
+
+        100% {
+            transform: translate(-50%, -50%) scale(1.3);
+            opacity: 0;
+        }
+    }
+
+    @keyframes textFade {
+
+        0%,
+        100% {
+            opacity: 0.6;
+            transform: translateY(0px);
+        }
+
+        50% {
+            opacity: 1;
+            transform: translateY(-2px);
+        }
+    }
+
+    @keyframes progressSlide {
+        0% {
+            transform: translateX(-100%);
+        }
+
+        50% {
+            transform: translateX(0%);
+        }
+
+        100% {
+            transform: translateX(100%);
+        }
+    }
+</style>
+<!-- Loader Overlay -->
+<div id="loader-overlay">
+    <div class="loader-container">
+        <!-- Main spinning loader -->
+        <div class="logo-loader">
+            <div class="pulse-ring"></div>
+            <div class="logo-image"></div>
+        </div>
+        <div class="loading-text">Loading...</div>
+        <div class="loading-subtext">Save A Smile Foundation</div>
+        <div class="progress-bar">
+            <div class="progress-fill" style="width: 0%"></div>
+        </div>
+    </div>
+</div>
+<!-- End of Loader Overlay -->
+
 <!-- Header -->
 <div id="topbar">
     <div class="container px-0 px-lg-5">
@@ -36,7 +215,10 @@ if ($object->row_count() == 0) {
                 id="menu-btn">
                 <i class="fa-solid fa-bars"></i>
             </button>
-            <a href="index.php"><img src="img/logo2.png" width="180" /></a>
+            <a href="index.php">
+                <img src="img/logo2.png" width="180" class="d-lg-block d-none" />
+                <img src="img/logo222.png" width="50" class="d-lg-none d-block" />
+            </a>
             <div class="sam" id="nav">
                 <ul class="nav">
                     <li>
@@ -612,4 +794,142 @@ include 'footer.php';
             prevEl: ".banner-button-previous",
         },
     });
+</script>
+
+<script>
+    // Loader functionality
+    class SaveASmileLoader {
+        constructor() {
+            this.minLoadingTime = 3000; // Minimum 3 seconds
+            this.startTime = Date.now();
+            this.pageReady = false;
+            this.windowLoaded = false;
+            this.init();
+        }
+
+        init() {
+            // Start loading animations
+            this.startLoading();
+
+            // Check if page is already loaded
+            if (document.readyState === "complete") {
+                this.pageReady = true;
+                this.windowLoaded = true;
+                this.scheduleHide();
+            } else if (document.readyState === "interactive") {
+                this.pageReady = true;
+                window.addEventListener("load", () => {
+                    this.windowLoaded = true;
+                    this.scheduleHide();
+                });
+            } else {
+                // Page still loading
+                document.addEventListener("DOMContentLoaded", () => {
+                    this.pageReady = true;
+                    this.scheduleHide();
+                });
+
+                window.addEventListener("load", () => {
+                    this.windowLoaded = true;
+                    this.scheduleHide();
+                });
+            }
+        }
+
+        startLoading() {
+            this.updateLoadingText();
+            this.updateProgressBar();
+        }
+
+        updateLoadingText() {
+            const loadingTexts = [
+                "Loading...",
+                "Preparing smiles...",
+                "Spreading joy...",
+                "Almost ready...",
+            ];
+
+            const textElement = document.querySelector(".loading-text");
+            let currentIndex = 0;
+
+            this.textInterval = setInterval(() => {
+                if (textElement) {
+                    textElement.textContent = loadingTexts[currentIndex];
+                    currentIndex = (currentIndex + 1) % loadingTexts.length;
+                }
+            }, 600);
+        }
+
+        updateProgressBar() {
+            const progressFill = document.querySelector(".progress-fill");
+            let progress = 0;
+            const duration = this.minLoadingTime;
+            const increment = 100 / (duration / 50);
+
+            this.progressInterval = setInterval(() => {
+                progress += increment;
+                if (progress >= 100) {
+                    progress = 100;
+                    clearInterval(this.progressInterval);
+                }
+
+                if (progressFill) {
+                    progressFill.style.width = progress + "%";
+                }
+            }, 50);
+        }
+
+        scheduleHide() {
+            const elapsedTime = Date.now() - this.startTime;
+            const remainingTime = Math.max(0, this.minLoadingTime - elapsedTime);
+
+            setTimeout(() => {
+                this.hideLoader();
+            }, remainingTime);
+        }
+
+        hideLoader() {
+            // Clear intervals
+            if (this.textInterval) clearInterval(this.textInterval);
+            if (this.progressInterval) clearInterval(this.progressInterval);
+
+            // Hide loader with animation
+            const loader = document.getElementById("loader-overlay");
+            const mainContent = document.getElementById("main-content");
+
+            if (loader) {
+                loader.classList.add("hide");
+            }
+
+            // Show main content
+            if (mainContent) {
+                setTimeout(() => {
+                    mainContent.classList.add("show");
+                }, 300);
+            }
+
+            // Re-enable scrolling
+            document.body.style.overflow = "";
+        }
+
+        // Method to manually hide loader
+        forceHide() {
+            this.hideLoader();
+        }
+    }
+
+    // Initialize loader immediately
+    let loaderInstance = null;
+
+    function initLoader() {
+        document.body.style.overflow = "hidden";
+        loaderInstance = new SaveASmileLoader();
+    }
+
+    // Start loader as soon as script runs
+    if (document.readyState === "loading") {
+        document.addEventListener("DOMContentLoaded", initLoader);
+    } else {
+        initLoader();
+    }
 </script>

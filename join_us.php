@@ -1133,32 +1133,6 @@ $object = new batch_details();
             }, 1000);
         }
 
-        function loadUpazilas() {
-            const district = $("#district").val();
-            const upazilaSelect = $("#upazila");
-
-            upazilaSelect.html('<option value="">Select Upazila</option>');
-
-            if (district) {
-                $.ajax({
-                    url: "admin/join_us_action.php",
-                    method: "POST",
-                    data: {
-                        district: district,
-                        action: "get_upazilas"
-                    },
-                    success: function(response) {
-                        const upazilas = JSON.parse(response);
-                        upazilas.forEach(function(upazila) {
-                            upazilaSelect.append(
-                                `<option value="${upazila}">${upazila}</option>`
-                            );
-                        });
-                    },
-                });
-            }
-        }
-
         function populateReviewData() {
             const reviewData = `
                 <strong>Personal Information:</strong><br>

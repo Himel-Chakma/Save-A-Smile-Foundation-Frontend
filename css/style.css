@@ -12,6 +12,7 @@
   box-sizing: border-box;
   font-family: "Inter", sans-serif;
   scroll-behavior: smooth;
+  overflow-x: hidden !important;
 }
 body {
   overflow-x: hidden !important;

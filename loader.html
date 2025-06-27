@@ -1,0 +1,456 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Save A Smile Foundation Loader</title>
+    <style>
+      body {
+        margin: 0;
+        padding: 0;
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+        overflow-x: hidden;
+      }
+
+      /* Loader overlay styles */
+      #loader-overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        z-index: 9999;
+        transition: opacity 0.5s ease-out, visibility 0.5s ease-out;
+      }
+
+      #loader-overlay.hide {
+        opacity: 0;
+        visibility: hidden;
+      }
+
+      /* Main content styles */
+      #main-content {
+        opacity: 0;
+        transition: opacity 0.5s ease-in;
+        padding: 40px;
+        max-width: 1200px;
+        margin: 0 auto;
+      }
+
+      #main-content.show {
+        opacity: 1;
+      }
+
+      .hero-section {
+        text-align: center;
+        padding: 60px 20px;
+        background: linear-gradient(135deg, #fff9e6 0%, #fff3cd 100%);
+        border-radius: 20px;
+        margin-bottom: 40px;
+      }
+
+      .hero-title {
+        font-size: 3rem;
+        font-weight: bold;
+        color: #ff6b35;
+        margin-bottom: 20px;
+      }
+
+      .hero-subtitle {
+        font-size: 1.2rem;
+        color: #6c757d;
+        margin-bottom: 30px;
+      }
+
+      .cta-button {
+        background: linear-gradient(45deg, #ffc107, #ff9800);
+        color: white;
+        padding: 15px 30px;
+        border: none;
+        border-radius: 30px;
+        font-size: 1.1rem;
+        font-weight: 600;
+        cursor: pointer;
+        transition: transform 0.3s ease;
+      }
+
+      .cta-button:hover {
+        transform: translateY(-2px);
+      }
+
+      .loader-container {
+        text-align: center;
+        position: relative;
+      }
+
+      .logo-loader {
+        width: 120px;
+        height: 120px;
+        margin: 0 auto 30px;
+        position: relative;
+      }
+
+      .logo-image {
+        width: 100%;
+        height: 100%;
+        background-image: url("img/logo222.png");
+        background-size: contain;
+        background-repeat: no-repeat;
+        background-position: center;
+        animation: logoSpin 2s linear infinite;
+      }
+
+      .pulse-ring {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        width: 140px;
+        height: 140px;
+        border: 3px solid rgba(255, 193, 7, 0.3);
+        border-radius: 50%;
+        transform: translate(-50%, -50%);
+        animation: pulseRing 2s ease-out infinite;
+      }
+
+      .loading-text {
+        font-size: 20px;
+        font-weight: 600;
+        color: #ff6b35;
+        margin-bottom: 10px;
+        animation: textFade 1.5s ease-in-out infinite;
+      }
+
+      .loading-subtext {
+        font-size: 14px;
+        color: #6c757d;
+        opacity: 0.8;
+      }
+
+      .progress-bar {
+        width: 200px;
+        height: 4px;
+        background: #e9ecef;
+        border-radius: 2px;
+        margin: 20px auto 0;
+        overflow: hidden;
+        position: relative;
+      }
+
+      .progress-fill {
+        height: 100%;
+        background: linear-gradient(90deg, #ffc107, #ff9800, #ff6b35);
+        border-radius: 2px;
+        width: 0%;
+        transition: width 0.3s ease;
+      }
+
+      @keyframes logoSpin {
+        0% {
+          transform: scale(1);
+        }
+        25% {
+          transform: scale(1.05);
+        }
+        50% {
+          transform: scale(1);
+        }
+        75% {
+          transform: scale(1.05);
+        }
+        100% {
+          transform: scale(1);
+        }
+      }
+
+      @keyframes pulseRing {
+        0% {
+          transform: translate(-50%, -50%) scale(0.8);
+          opacity: 1;
+        }
+        100% {
+          transform: translate(-50%, -50%) scale(1.3);
+          opacity: 0;
+        }
+      }
+
+      @keyframes textFade {
+        0%,
+        100% {
+          opacity: 0.6;
+          transform: translateY(0px);
+        }
+        50% {
+          opacity: 1;
+          transform: translateY(-2px);
+        }
+      }
+
+      @keyframes progressSlide {
+        0% {
+          transform: translateX(-100%);
+        }
+        50% {
+          transform: translateX(0%);
+        }
+        100% {
+          transform: translateX(100%);
+        }
+      }
+    </style>
+    <script>
+      // Loader functionality
+      class SaveASmileLoader {
+        constructor() {
+          this.minLoadingTime = 3000; // Minimum 3 seconds
+          this.startTime = Date.now();
+          this.pageReady = false;
+          this.windowLoaded = false;
+          this.init();
+        }
+
+        init() {
+          console.log("Loader initialized");
+
+          // Start loading animations
+          this.startLoading();
+
+          // Check if page is already loaded
+          if (document.readyState === "complete") {
+            console.log("Page already complete");
+            this.pageReady = true;
+            this.windowLoaded = true;
+            this.scheduleHide();
+          } else if (document.readyState === "interactive") {
+            console.log("Page interactive");
+            this.pageReady = true;
+            window.addEventListener("load", () => {
+              console.log("Window loaded");
+              this.windowLoaded = true;
+              this.scheduleHide();
+            });
+          } else {
+            // Page still loading
+            document.addEventListener("DOMContentLoaded", () => {
+              console.log("DOM loaded");
+              this.pageReady = true;
+              this.scheduleHide();
+            });
+
+            window.addEventListener("load", () => {
+              console.log("Window loaded");
+              this.windowLoaded = true;
+              this.scheduleHide();
+            });
+          }
+        }
+
+        startLoading() {
+          this.updateLoadingText();
+          this.updateProgressBar();
+        }
+
+        updateLoadingText() {
+          const loadingTexts = [
+            "Loading...",
+            "Preparing smiles...",
+            "Spreading joy...",
+            "Almost ready...",
+          ];
+
+          const textElement = document.querySelector(".loading-text");
+          let currentIndex = 0;
+
+          this.textInterval = setInterval(() => {
+            if (textElement) {
+              textElement.textContent = loadingTexts[currentIndex];
+              currentIndex = (currentIndex + 1) % loadingTexts.length;
+            }
+          }, 600);
+        }
+
+        updateProgressBar() {
+          const progressFill = document.querySelector(".progress-fill");
+          let progress = 0;
+          const duration = this.minLoadingTime;
+          const increment = 100 / (duration / 50);
+
+          this.progressInterval = setInterval(() => {
+            progress += increment;
+            if (progress >= 100) {
+              progress = 100;
+              clearInterval(this.progressInterval);
+            }
+
+            if (progressFill) {
+              progressFill.style.width = progress + "%";
+            }
+          }, 50);
+        }
+
+        scheduleHide() {
+          const elapsedTime = Date.now() - this.startTime;
+          const remainingTime = Math.max(0, this.minLoadingTime - elapsedTime);
+
+          console.log(`Scheduling hide in ${remainingTime}ms`);
+
+          setTimeout(() => {
+            this.hideLoader();
+          }, remainingTime);
+        }
+
+        hideLoader() {
+          console.log("Hiding loader");
+
+          // Clear intervals
+          if (this.textInterval) clearInterval(this.textInterval);
+          if (this.progressInterval) clearInterval(this.progressInterval);
+
+          // Hide loader with animation
+          const loader = document.getElementById("loader-overlay");
+          const mainContent = document.getElementById("main-content");
+
+          if (loader) {
+            loader.classList.add("hide");
+          }
+
+          // Show main content
+          if (mainContent) {
+            setTimeout(() => {
+              mainContent.classList.add("show");
+            }, 300);
+          }
+
+          // Re-enable scrolling
+          document.body.style.overflow = "";
+
+          console.log("Loader hidden, main content shown");
+        }
+
+        // Method to manually hide loader
+        forceHide() {
+          this.hideLoader();
+        }
+      }
+
+      // Initialize loader immediately
+      let loaderInstance = null;
+
+      function initLoader() {
+        console.log("Initializing loader...");
+        document.body.style.overflow = "hidden";
+        loaderInstance = new SaveASmileLoader();
+      }
+
+      // Start loader as soon as script runs
+      if (document.readyState === "loading") {
+        document.addEventListener("DOMContentLoaded", initLoader);
+      } else {
+        initLoader();
+      }
+
+      // Test function to show loader again
+      function showLoader() {
+        console.log("Showing loader for testing");
+        const loader = document.getElementById("loader-overlay");
+        const mainContent = document.getElementById("main-content");
+
+        if (loader) {
+          loader.style.display = "flex";
+          loader.classList.remove("hide");
+        }
+
+        if (mainContent) {
+          mainContent.classList.remove("show");
+        }
+
+        document.body.style.overflow = "hidden";
+
+        // Clear any existing loader
+        if (loaderInstance) {
+          if (loaderInstance.textInterval)
+            clearInterval(loaderInstance.textInterval);
+          if (loaderInstance.progressInterval)
+            clearInterval(loaderInstance.progressInterval);
+        }
+
+        loaderInstance = new SaveASmileLoader();
+      }
+    </script>
+  </head>
+  <body>
+    <!-- Loader Overlay -->
+    <div id="loader-overlay">
+      <div class="loader-container">
+        <!-- Main spinning loader -->
+        <div class="logo-loader">
+          <div class="pulse-ring"></div>
+          <div class="logo-image"></div>
+        </div>
+        <div class="loading-text">Loading...</div>
+        <div class="loading-subtext">Save A Smile Foundation</div>
+        <div class="progress-bar">
+          <div class="progress-fill" style="width: 0%"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Main Website Content -->
+    <div id="main-content">
+      <div class="hero-section">
+        <h1 class="hero-title">Save A Smile Foundation</h1>
+        <p class="hero-subtitle">
+          Spreading smiles and bringing joy to communities worldwide
+        </p>
+        <button class="cta-button" onclick="showLoader()">
+          Test Loader Again
+        </button>
+      </div>
+
+      <div style="padding: 40px; text-align: center">
+        <h2 style="color: #ff6b35; margin-bottom: 20px">
+          Welcome to Our Website!
+        </h2>
+        <p
+          style="
+            font-size: 1.1rem;
+            color: #6c757d;
+            line-height: 1.6;
+            max-width: 600px;
+            margin: 0 auto;
+          "
+        >
+          The loader will automatically display when visitors first arrive at
+          your website. It shows for a minimum of 2 seconds and waits for the
+          page to fully load before hiding.
+        </p>
+
+        <div
+          style="
+            margin-top: 40px;
+            padding: 30px;
+            background: #f8f9fa;
+            border-radius: 15px;
+            max-width: 800px;
+            margin: 40px auto 0;
+          "
+        >
+          <h3 style="color: #ff6b35; margin-bottom: 15px">How to Implement:</h3>
+          <ol style="text-align: left; color: #6c757d; line-height: 1.8">
+            <li>
+              Replace the SVG background in CSS with your actual logo image path
+            </li>
+            <li>Copy this HTML structure to your website</li>
+            <li>
+              The JavaScript will automatically handle showing/hiding the loader
+            </li>
+            <li>Customize the loading messages and timing as needed</li>
+          </ol>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
